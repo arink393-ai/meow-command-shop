@@ -516,7 +516,7 @@ async function doAuth(){
   if(pass.length<6){ authErr('密碼至少 6 碼'); return; }
   $('#authBtn').disabled=true; authErr('處理中…');
   try{
-    var res = authMode==='signup' ? await sb.auth.signUp({email:email,password:pass}) : await sb.auth.signInWithPassword({email:email,password:pass});
+    var res = authMode==='signup' ? await sb.auth.signUp({email:email,password:pass,options:{emailRedirectTo:location.origin+location.pathname}}) : await sb.auth.signInWithPassword({email:email,password:pass});
     if(res.error){ authErr(res.error.message); }
     else if(authMode==='signup' && !res.data.session){ authErr('註冊成功！請到信箱點確認信，再回來登入。'); setAuthMode('login'); }
     else authErr('');
