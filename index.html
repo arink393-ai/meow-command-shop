@@ -155,6 +155,7 @@
     <div class="brand"><span class="paw">🐾</span><span>喵喵指令舖<small>MEOW · SKILL MARKET</small></span></div>
     <div class="bar-right" id="barRight" style="display:none">
       <button class="iconbtn" id="installBtn" style="display:none">📲 <span class="lbl">安裝</span></button>
+      <button class="iconbtn" id="settingsBtn">🔑 <span class="lbl">設定</span></button>
       <button class="iconbtn" id="histBtn">📜 <span class="lbl">紀錄</span></button>
       <button class="iconbtn" id="topupBtn">🐟 <span class="lbl">儲值</span></button>
       <div class="coin" id="coin"><span class="fish">🐟</span><b id="pts">0</b></div>
@@ -223,6 +224,22 @@
   <div class="sheet-b">
     <div class="pkgs" id="pkgs"></div>
     <div class="disclaimer">⚠️ <b>正式上線提醒</b><br>儲值為 demo。真的收費時，點數餘額、扣點與「誰安裝了什麼」都要放後端（Supabase ＋ RLS），再串金流（綠界／藍新／Stripe）。否則餘額能被前端隨意修改。</div>
+  </div>
+</aside>
+
+<aside class="sheet right" id="settingsSheet" aria-hidden="true">
+  <div class="sheet-h"><span class="ico">🔑</span><div><h2>AI 設定</h2><p>設定你自己的 Gemini 金鑰，AI 小幫手才能真的生成內容</p></div><button class="x" data-close>×</button></div>
+  <div class="sheet-b">
+    <label class="fl">Gemini API 金鑰</label>
+    <input class="field" id="geminiKey" type="password" placeholder="貼上你的 Gemini API 金鑰（AIza...）" autocomplete="off" />
+    <label class="fl">模型</label>
+    <select class="field" id="geminiModel">
+      <option value="gemini-2.5-flash">Gemini 2.5 Flash（預設・品質佳）</option>
+      <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite（更快・免費額度高）</option>
+    </select>
+    <button class="run" id="testKeyBtn">測試金鑰</button>
+    <div class="warn" id="keyStatus" style="display:none"></div>
+    <div class="disclaimer">免費申請：到 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a> 登入 Google 帳號 → Create API key，貼上即可。金鑰只存在<b>你自己這台裝置的瀏覽器</b>（localStorage），不會送到任何後端，也不會同步到別的裝置。</div>
   </div>
 </aside>
 
@@ -408,7 +425,7 @@ function closeEmbed(){ const p=$('#embedPanel'); p.classList.remove('show'); p.s
 
 /* ============ AI 指令 Sheet ============ */
 function openScrim(){$('#scrim').classList.add('show');}
-function closeAll(){$('#scrim').classList.remove('show');['sheet','histSheet','topupSheet'].forEach(id=>{const el=$('#'+id);el.classList.remove('show');el.setAttribute('aria-hidden','true');});}
+function closeAll(){$('#scrim').classList.remove('show');['sheet','histSheet','topupSheet','settingsSheet'].forEach(id=>{const el=$('#'+id);el.classList.remove('show');el.setAttribute('aria-hidden','true');});}
 function openCmd(s,prefill){
   current=s;
   $('#mIco').textContent=s.ico;$('#mTitle').textContent=s.title;$('#mDesc').textContent=s.desc;$('#mRc').textContent='🐟 '+s.perUse;
@@ -423,24 +440,49 @@ function openCmd(s,prefill){
 }
 function refreshRun(){if(!current||current.type!=='ai')return;const ok=acct.points>=current.perUse;$('#mRun').disabled=!ok;$('#mWarn').style.display=ok?'none':'block';}
 function collect(){const v={};document.querySelectorAll('#mFields .field').forEach(el=>v[el.dataset.k]=el.value.trim());return v;}
+/* ============ Gemini（AI 小幫手用你自己的免費金鑰）============ */
+const GKEY_LS='meow:gemini_key', GMODEL_LS='meow:gemini_model';
+function getGeminiKey(){ var el=$('#geminiKey'); return el?el.value.trim():''; }
+function getGeminiModel(){ var el=$('#geminiModel'); return el&&el.value?el.value:'gemini-2.5-flash'; }
+function openSettings(){
+  $('#keyStatus').style.display='none';
+  openScrim();const sh=$('#settingsSheet');sh.classList.add('show');sh.setAttribute('aria-hidden','false');
+}
+async function geminiGenerate(text){
+  const key=getGeminiKey();
+  if(!key) throw new Error('尚未設定 Gemini 金鑰，請先點右上角「設定」貼上金鑰。');
+  const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+getGeminiModel()+':generateContent',{
+    method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},
+    body:JSON.stringify({contents:[{parts:[{text:text}]}],generationConfig:{temperature:0.7,maxOutputTokens:1024}})});
+  if(!res.ok){
+    let msg='API 錯誤 '+res.status;
+    try{ const e=await res.json(); if(e.error&&e.error.message)msg=e.error.message; }catch(_){}
+    if(res.status===429)msg='已達免費額度上限，請稍後再試或換 Flash-Lite 模型';
+    if(res.status===400||res.status===403)msg='金鑰無效或權限不足，請確認金鑰是否正確';
+    throw new Error(msg);
+  }
+  const d=await res.json();
+  const cand=d.candidates&&d.candidates[0];
+  const txt=cand&&cand.content&&cand.content.parts?cand.content.parts.map(p=>p.text||'').join(''):'';
+  if(!txt) throw new Error('沒有回傳內容'+(cand&&cand.finishReason?'（'+cand.finishReason+'）':''));
+  return txt;
+}
 async function runCommand(){
   const v=collect();
   if(current.fields.some(f=>f.type!=='select'&&!v[f.key])){toast('先把欄位填一下喵～');return;}
+  if(!getGeminiKey()){ closeAll(); openSettings(); toast('請先設定 Gemini 金鑰喵～'); return; }
   if(acct.points<current.perUse){refreshRun();return;}
   const btn=$('#mRun'),out=$('#mOut');btn.disabled=true;$('#mResult').classList.add('show');
   out.innerHTML='<div class="thinking"><span class="fishswim">🐟</span>喵～ 正在生成…</div>';
   setPoints(acct.points-current.perUse);toast('－🐟 '+current.perUse);
   try{
-    const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:current.prompt(v)}]})});
-    const data=await r.json();
-    const text=(data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n").trim();
+    const text=(await geminiGenerate(current.prompt(v))).trim();
     if(!text)throw new Error("empty");
     out.textContent=text;
     const prev=Object.values(v).filter(Boolean).join(' · ').slice(0,60);
     acct.history.unshift({type:'gen',cmdId:current.id,ico:current.ico,title:current.title,inputs:v,preview:prev,result:text,cost:current.perUse,t:Date.now()});
     saveAcct();refreshHistBadge();
-  }catch(e){setPoints(acct.points+current.perUse);out.innerHTML='<div class="warn">生成沒成功，小魚乾已退還。<br><small style="color:var(--muted)">（部署到自己網站時，這段要接自家 API 端點）</small></div>';}
+  }catch(e){setPoints(acct.points+current.perUse);out.innerHTML='<div class="warn">生成沒成功，小魚乾已退還。<br><small style="color:var(--muted)">'+(e&&e.message?e.message:'請稍後再試')+'</small></div>';}
   btn.disabled=acct.points<current.perUse;
 }
 
@@ -474,6 +516,18 @@ $('#loginName').addEventListener('keydown',e=>{if(e.key==='Enter')login($('#logi
 $('#logoutBtn').addEventListener('click',logout);
 $('#histBtn').addEventListener('click',openHist);
 $('#topupBtn').addEventListener('click',openTopup);
+$('#settingsBtn').addEventListener('click',openSettings);
+$('#geminiKey').addEventListener('change',()=>{ try{localStorage.setItem(GKEY_LS,getGeminiKey());}catch(e){} });
+$('#geminiModel').addEventListener('change',()=>{ try{localStorage.setItem(GMODEL_LS,getGeminiModel());}catch(e){} });
+$('#testKeyBtn').addEventListener('click',async()=>{
+  const st=$('#keyStatus'); st.style.display='block'; st.textContent='測試中…';
+  try{ const t=await geminiGenerate('請只回覆四個字：金鑰有效'); st.textContent='✅ '+t.trim(); }
+  catch(e){ st.textContent='❌ '+(e.message||'測試失敗'); }
+});
+try{
+  const sk=localStorage.getItem(GKEY_LS); if(sk)$('#geminiKey').value=sk;
+  const sm=localStorage.getItem(GMODEL_LS); if(sm)$('#geminiModel').value=sm;
+}catch(e){}
 $('#seg').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;view=b.dataset.v;document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on',x===b));renderChips();renderGrid();});
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;filter=b.dataset.c;renderChips();renderGrid();});
 $('#grid').addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const id=b.dataset.id;
