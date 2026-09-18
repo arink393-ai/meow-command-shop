@@ -107,6 +107,8 @@
   .cat-jp{color:#a13b5c;background:#fbe4ec} .cat-grid{color:#3d6e6e;background:#e2f0ef} .cat-poster{color:#6b4fa0;background:#ece3f7}
   .cat-doll{color:#c0562b;background:#fce6d8} .cat-threads{color:#2e5aa8;background:#e2ebfa} .cat-copy{color:#2f6e5c;background:#dff1e9}
   .cat-worklife{color:#8a5230;background:#f5e6d8} .cat-devprompt{color:#3f5e8a;background:#e2eaf5}
+  .cat-anim2{color:#7a4fa0;background:#efe3f7} .cat-model{color:#2b7a6b;background:#dcf0ec} .cat-doc{color:#5a6b8a;background:#e5e9f2}
+  .cat-design2{color:#a0522d;background:#f7e6da} .cat-analysis{color:#8a3f5a;background:#f7e0e8}
   .tag{position:relative;font-family:var(--font-display);font-weight:700;font-size:13px;background:#efe0c4;color:#6b5636;border:1px solid #ddca9f;padding:4px 10px 4px 16px;border-radius:5px 12px 12px 5px}
   .tag::before{content:"";position:absolute;left:6px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1px #c9b58a}
   .tag.free{background:#e6efdd;color:#4e6b3e;border-color:#c3d8b0}
@@ -310,6 +312,7 @@
   <div class="sheet-h"><span class="ico" id="pIco">🖼️</span><div><h2 id="pTitle">生圖指令</h2><p id="pDesc"></p></div><button class="x" data-close>×</button></div>
   <div class="sheet-b">
     <img id="pImg" src="" alt="" style="display:none;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin-bottom:14px" referrerpolicy="no-referrer" />
+    <div id="pMeta" style="display:none;margin-bottom:12px"></div>
     <div class="warn" id="pNote" style="display:none"></div>
     <div class="out" id="pText" style="white-space:pre-wrap;max-height:48vh;overflow-y:auto;background:var(--paper-2);border-radius:11px;padding:14px;font-size:13px;line-height:1.7"></div>
     <button class="run" id="pCopyBtn" style="margin-top:14px">複製指令 📋</button>
@@ -432,10 +435,12 @@ const SKILLS = [
     prompt:v=>`你是內容編輯。根據以下主題，產生5個不同風格（懸念式、數字式、情感式、教學式、反差式）的繁體中文吸睛標題，適合社群貼文或部落格文章。主題：${v.topic}` },
 ].concat(window.WORK_PROMPTS||[]).concat((window.IMG_PROMPTS||[]).map(p=>({
   id:p.id, ico:p.ico, title:p.title, cat:p.cat, type:'prompt', price:0, img:p.img,
-  desc:p.desc, note:p.note, promptText:p.prompt, src:p.source
+  desc:p.desc, note:p.note, promptText:p.prompt, src:p.source, tool:p.tool, srcUrl:p.url
 })));
-const CATS={read:'閱讀',teach:'教學',lang:'語言',biz:'商務',life:'生活',copy:'文案發想',worklife:'職場提示詞',devprompt:'工程提示詞',jpstyle:'日系拼貼',grid9:'九宮格大頭貼',poster:'活動字體海報',doll:'公仔指令',threads:'Threads爆紅'};
-const CATCLASS={read:'cat-read',teach:'cat-teach',lang:'cat-lang',biz:'cat-biz',life:'cat-life',copy:'cat-copy',worklife:'cat-worklife',devprompt:'cat-devprompt',jpstyle:'cat-jp',grid9:'cat-grid',poster:'cat-poster',doll:'cat-doll',threads:'cat-threads'};
+const CATS={read:'閱讀',teach:'教學',lang:'語言',biz:'商務',life:'生活',copy:'文案發想',worklife:'職場提示詞',devprompt:'工程提示詞',jpstyle:'日系拼貼',grid9:'九宮格大頭貼',poster:'活動字體海報',doll:'公仔指令',threads:'Threads爆紅',
+  anim:'動畫',model3d:'建模',thesis:'研究所論文神器',slides:'簡報',videogen:'影片生成',storyboard:'分鏡',voiceover:'配音',deai:'去AI感',interior:'室內設計',posterdesign:'海報設計',dataviz:'數據分析圖表',official:'公文撰寫檢查',photobook:'寫真集感圖',physiognomy:'面相分析',outfit:'穿搭分析'};
+const CATCLASS={read:'cat-read',teach:'cat-teach',lang:'cat-lang',biz:'cat-biz',life:'cat-life',copy:'cat-copy',worklife:'cat-worklife',devprompt:'cat-devprompt',jpstyle:'cat-jp',grid9:'cat-grid',poster:'cat-poster',doll:'cat-doll',threads:'cat-threads',
+  anim:'cat-anim2',model3d:'cat-model',thesis:'cat-doc',slides:'cat-design2',videogen:'cat-analysis',storyboard:'cat-jp',voiceover:'cat-grid',deai:'cat-poster',interior:'cat-doll',posterdesign:'cat-threads',dataviz:'cat-anim2',official:'cat-model',photobook:'cat-doc',physiognomy:'cat-design2',outfit:'cat-analysis'};
 const PACKAGES=[{name:'小包',amt:100,bonus:0,price:'NT$ 60'},{name:'中包（最划算）',amt:300,bonus:30,price:'NT$ 160',best:true},{name:'大包',amt:800,bonus:120,price:'NT$ 400'}];
 
 /* ============ 儲存層（預覽用記憶體，GitHub Pages 自動用 localStorage）============ */
@@ -525,6 +530,11 @@ function openPromptCard(s){
   else { imgEl.style.display='none'; imgEl.src=''; }
   const noteEl=$('#pNote');
   if(s.note){ noteEl.style.display='block'; noteEl.textContent=s.note; } else { noteEl.style.display='none'; }
+  const metaEl=$('#pMeta');
+  const metaBits=[];
+  if(s.tool) metaBits.push(`<span class="tag">🤖 推薦工具：${escapeHtml(s.tool)}</span>`);
+  if(s.srcUrl) metaBits.push(`<a class="tag" href="${escapeHtml(s.srcUrl)}" target="_blank" rel="noopener">🔗 查看原文</a>`);
+  if(metaBits.length){ metaEl.innerHTML=metaBits.join(' '); metaEl.style.display='flex'; metaEl.style.gap='8px'; metaEl.style.flexWrap='wrap'; } else { metaEl.style.display='none'; }
   $('#pText').textContent=s.promptText||'';
   openScrim();const sh=$('#promptSheet');sh.classList.add('show');sh.setAttribute('aria-hidden','false');
 }
