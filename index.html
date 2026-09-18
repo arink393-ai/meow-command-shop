@@ -270,18 +270,39 @@
 </aside>
 
 <aside class="sheet right" id="settingsSheet" aria-hidden="true">
-  <div class="sheet-h"><span class="ico">🔑</span><div><h2>AI 設定</h2><p>設定你自己的 Gemini 金鑰，AI 小幫手才能真的生成內容</p></div><button class="x" data-close>×</button></div>
+  <div class="sheet-h"><span class="ico">🔑</span><div><h2>AI 設定</h2><p>選一個 AI 服務、貼上你自己的金鑰，AI 小幫手才能真的生成內容</p></div><button class="x" data-close>×</button></div>
   <div class="sheet-b">
-    <label class="fl">Gemini API 金鑰</label>
-    <input class="field" id="geminiKey" type="password" placeholder="貼上你的 Gemini API 金鑰（AIza...）" autocomplete="off" />
-    <label class="fl">模型</label>
-    <select class="field" id="geminiModel">
-      <option value="gemini-2.5-flash">Gemini 2.5 Flash（預設・品質佳）</option>
-      <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite（更快・免費額度高）</option>
+    <label class="fl">AI 服務</label>
+    <select class="field" id="aiProvider">
+      <option value="gemini">Google Gemini（免費）</option>
+      <option value="claude">Anthropic Claude</option>
     </select>
+
+    <div id="providerGemini">
+      <label class="fl">Gemini API 金鑰</label>
+      <input class="field" id="geminiKey" type="password" placeholder="貼上你的 Gemini API 金鑰（AIza...）" autocomplete="off" />
+      <label class="fl">模型</label>
+      <select class="field" id="geminiModel">
+        <option value="gemini-2.5-flash">Gemini 2.5 Flash（預設・品質佳）</option>
+        <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite（更快・免費額度高）</option>
+      </select>
+      <div class="hint" style="font-size:12px;color:var(--muted);margin:-8px 0 16px">免費申請：到 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a> 登入 Google 帳號 → Create API key，貼上即可。</div>
+    </div>
+
+    <div id="providerClaude" style="display:none">
+      <label class="fl">Claude API 金鑰</label>
+      <input class="field" id="claudeKey" type="password" placeholder="貼上你的 Anthropic API 金鑰（sk-ant-...）" autocomplete="off" />
+      <label class="fl">模型</label>
+      <select class="field" id="claudeModel">
+        <option value="claude-sonnet-5">Claude Sonnet 5（推薦・平衡品質與速度）</option>
+        <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5（更快・較便宜）</option>
+      </select>
+      <div class="hint" style="font-size:12px;color:var(--muted);margin:-8px 0 16px">到 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a> 申請金鑰（需先儲值扣款，非免費）。</div>
+    </div>
+
     <button class="run" id="testKeyBtn">測試金鑰</button>
     <div class="warn" id="keyStatus" style="display:none"></div>
-    <div class="disclaimer">免費申請：到 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a> 登入 Google 帳號 → Create API key，貼上即可。金鑰只存在<b>你自己這台裝置的瀏覽器</b>（localStorage），不會送到任何後端，也不會同步到別的裝置。</div>
+    <div class="disclaimer">金鑰只存在<b>你自己這台裝置的瀏覽器</b>（localStorage），不會送到任何後端，也不會同步到別的裝置；兩個服務的金鑰可以都填，隨時切換用哪一個。</div>
   </div>
 </aside>
 
@@ -534,10 +555,21 @@ function refreshRun(){if(!current||current.type!=='ai')return;const ok=acct.poin
 function collect(){const v={};document.querySelectorAll('#mFields .field').forEach(el=>v[el.dataset.k]=el.value.trim());return v;}
 /* ============ Gemini（AI 小幫手用你自己的免費金鑰）============ */
 const GKEY_LS='meow:gemini_key', GMODEL_LS='meow:gemini_model';
+const CKEY_LS='meow:claude_key', CMODEL_LS='meow:claude_model', PROVIDER_LS='meow:ai_provider';
 function getGeminiKey(){ var el=$('#geminiKey'); return el?el.value.trim():''; }
 function getGeminiModel(){ var el=$('#geminiModel'); return el&&el.value?el.value:'gemini-2.5-flash'; }
+function getClaudeKey(){ var el=$('#claudeKey'); return el?el.value.trim():''; }
+function getClaudeModel(){ var el=$('#claudeModel'); return el&&el.value?el.value:'claude-sonnet-5'; }
+function getProvider(){ var el=$('#aiProvider'); return el&&el.value?el.value:'gemini'; }
+function hasActiveKey(){ return getProvider()==='claude' ? !!getClaudeKey() : !!getGeminiKey(); }
+function syncProviderView(){
+  const p=getProvider();
+  $('#providerGemini').style.display = p==='claude' ? 'none' : 'block';
+  $('#providerClaude').style.display = p==='claude' ? 'block' : 'none';
+}
 function openSettings(){
   $('#keyStatus').style.display='none';
+  syncProviderView();
   openScrim();const sh=$('#settingsSheet');sh.classList.add('show');sh.setAttribute('aria-hidden','false');
 }
 async function geminiGenerate(text){
@@ -559,16 +591,36 @@ async function geminiGenerate(text){
   if(!txt) throw new Error('沒有回傳內容'+(cand&&cand.finishReason?'（'+cand.finishReason+'）':''));
   return txt;
 }
+async function claudeGenerate(text){
+  const key=getClaudeKey();
+  if(!key) throw new Error('尚未設定 Claude 金鑰，請先點右上角「設定」貼上金鑰。');
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:getClaudeModel(),max_tokens:1024,messages:[{role:'user',content:text}]})});
+  if(!res.ok){
+    let msg='API 錯誤 '+res.status;
+    try{ const e=await res.json(); if(e.error&&e.error.message)msg=e.error.message; }catch(_){}
+    if(res.status===401)msg='金鑰無效，請確認金鑰是否正確';
+    if(res.status===429)msg='已達額度上限，請稍後再試';
+    throw new Error(msg);
+  }
+  const d=await res.json();
+  const txt=(d.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+  if(!txt) throw new Error('沒有回傳內容');
+  return txt;
+}
+function aiGenerate(text){ return getProvider()==='claude' ? claudeGenerate(text) : geminiGenerate(text); }
 async function runCommand(){
   const v=collect();
   if(current.fields.some(f=>f.type!=='select'&&!v[f.key])){toast('先把欄位填一下喵～');return;}
-  if(!getGeminiKey()){ closeAll(); openSettings(); toast('請先設定 Gemini 金鑰喵～'); return; }
+  if(!hasActiveKey()){ closeAll(); openSettings(); toast('請先設定 AI 金鑰喵～'); return; }
   if(acct.points<current.perUse){refreshRun();return;}
   const btn=$('#mRun'),out=$('#mOut');btn.disabled=true;$('#mResult').classList.add('show');
   out.innerHTML='<div class="thinking"><span class="fishswim">🐟</span>喵～ 正在生成…</div>';
   setPoints(acct.points-current.perUse);toast('－🐟 '+current.perUse);
   try{
-    const text=(await geminiGenerate(current.prompt(v))).trim();
+    const text=(await aiGenerate(current.prompt(v))).trim();
     if(!text)throw new Error("empty");
     out.textContent=text;
     const prev=Object.values(v).filter(Boolean).join(' · ').slice(0,60);
@@ -609,16 +661,23 @@ $('#logoutBtn').addEventListener('click',logout);
 $('#histBtn').addEventListener('click',openHist);
 $('#topupBtn').addEventListener('click',openTopup);
 $('#settingsBtn').addEventListener('click',openSettings);
+$('#aiProvider').addEventListener('change',()=>{ syncProviderView(); try{localStorage.setItem(PROVIDER_LS,getProvider());}catch(e){} });
 $('#geminiKey').addEventListener('change',()=>{ try{localStorage.setItem(GKEY_LS,getGeminiKey());}catch(e){} });
 $('#geminiModel').addEventListener('change',()=>{ try{localStorage.setItem(GMODEL_LS,getGeminiModel());}catch(e){} });
+$('#claudeKey').addEventListener('change',()=>{ try{localStorage.setItem(CKEY_LS,getClaudeKey());}catch(e){} });
+$('#claudeModel').addEventListener('change',()=>{ try{localStorage.setItem(CMODEL_LS,getClaudeModel());}catch(e){} });
 $('#testKeyBtn').addEventListener('click',async()=>{
   const st=$('#keyStatus'); st.style.display='block'; st.textContent='測試中…';
-  try{ const t=await geminiGenerate('請只回覆四個字：金鑰有效'); st.textContent='✅ '+t.trim(); }
+  try{ const t=await aiGenerate('請只回覆四個字：金鑰有效'); st.textContent='✅ '+t.trim(); }
   catch(e){ st.textContent='❌ '+(e.message||'測試失敗'); }
 });
 try{
+  const sp=localStorage.getItem(PROVIDER_LS); if(sp)$('#aiProvider').value=sp;
   const sk=localStorage.getItem(GKEY_LS); if(sk)$('#geminiKey').value=sk;
   const sm=localStorage.getItem(GMODEL_LS); if(sm)$('#geminiModel').value=sm;
+  const ck=localStorage.getItem(CKEY_LS); if(ck)$('#claudeKey').value=ck;
+  const cm=localStorage.getItem(CMODEL_LS); if(cm)$('#claudeModel').value=cm;
+  syncProviderView();
 }catch(e){}
 $('#seg').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;view=b.dataset.v;document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on',x===b));renderChips();renderGrid();});
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;filter=b.dataset.c;renderChips();renderGrid();});
