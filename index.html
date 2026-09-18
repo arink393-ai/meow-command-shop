@@ -71,6 +71,25 @@
   .chip:hover{border-color:var(--persimmon)} .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(244px,1fr));gap:16px;padding:12px 0 60px}
+
+  .shop-layout{display:flex;align-items:flex-start;gap:28px;padding-top:24px}
+  .sidebar{width:212px;flex-shrink:0;display:flex;flex-direction:column;gap:22px;position:sticky;top:84px;max-height:calc(100vh - 100px);overflow-y:auto}
+  .side-sec{display:flex;flex-direction:column}
+  .side-title{font-family:var(--font-display);font-weight:700;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+  .main-col{flex:1;min-width:0}
+  .seg.vertical{display:flex;flex-direction:column;background:none;border:none;padding:0;gap:5px;margin-top:0}
+  .seg.vertical button{justify-content:flex-start;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:9px 13px}
+  .seg.vertical button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .seg.vertical b{margin-left:auto}
+  .chips.vertical{display:flex;flex-direction:column;flex-wrap:nowrap;gap:4px;padding:0}
+  .chips.vertical .chip{text-align:left;border-radius:11px;padding:8px 13px;font-size:13px}
+  .side-actions{display:flex;flex-direction:column;gap:6px}
+  .side-actions .iconbtn{justify-content:flex-start;border-radius:11px;width:100%;padding:9px 13px}
+  @media(max-width:900px){
+    .shop-layout{flex-direction:column}
+    .sidebar{width:100%;position:static;max-height:none;flex-direction:row;flex-wrap:wrap;overflow:visible}
+    .side-sec{flex:1;min-width:150px}
+  }
   .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px 16px;display:flex;flex-direction:column;transition:transform .16s,box-shadow .16s,border-color .16s}
   .card-img{width:calc(100% + 32px);margin:-18px -16px 12px;aspect-ratio:4/3;object-fit:cover;border-radius:16px 16px 0 0;background:var(--paper-2);display:block}
   .card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#dcceb2}
@@ -85,7 +104,7 @@
   .cat-read{color:#8a5a2b;background:#f4e6d2} .cat-teach{color:#4e6b3e;background:#e6efdd}
   .cat-lang{color:#3a4a5c;background:#e0e7ee} .cat-biz{color:#7c4f60;background:#f0e2e8} .cat-life{color:#b06a35;background:#fbe7d9}
   .cat-jp{color:#a13b5c;background:#fbe4ec} .cat-grid{color:#3d6e6e;background:#e2f0ef} .cat-poster{color:#6b4fa0;background:#ece3f7}
-  .cat-doll{color:#c0562b;background:#fce6d8} .cat-threads{color:#2e5aa8;background:#e2ebfa}
+  .cat-doll{color:#c0562b;background:#fce6d8} .cat-threads{color:#2e5aa8;background:#e2ebfa} .cat-copy{color:#2f6e5c;background:#dff1e9}
   .tag{position:relative;font-family:var(--font-display);font-weight:700;font-size:13px;background:#efe0c4;color:#6b5636;border:1px solid #ddca9f;padding:4px 10px 4px 16px;border-radius:5px 12px 12px 5px}
   .tag::before{content:"";position:absolute;left:6px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1px #c9b58a}
   .tag.free{background:#e6efdd;color:#4e6b3e;border-color:#c3d8b0}
@@ -157,10 +176,6 @@
   <div class="wrap bar-in">
     <div class="brand"><span class="paw">🐾</span><span>喵喵指令舖<small>MEOW · SKILL MARKET</small></span></div>
     <div class="bar-right" id="barRight" style="display:none">
-      <button class="iconbtn" id="installBtn" style="display:none">📲 <span class="lbl">安裝</span></button>
-      <button class="iconbtn" id="settingsBtn">🔑 <span class="lbl">設定</span></button>
-      <button class="iconbtn" id="histBtn">📜 <span class="lbl">紀錄</span></button>
-      <button class="iconbtn" id="topupBtn">🐟 <span class="lbl">儲值</span></button>
       <div class="coin" id="coin"><span class="fish">🐟</span><b id="pts">0</b></div>
       <div class="acct"><span class="av">🐱</span><span class="name" id="acctName">—</span><button class="lo" id="logoutBtn">登出</button></div>
     </div>
@@ -189,18 +204,37 @@
 </div>
 
 <main id="shop" style="display:none">
-  <section class="wrap hero">
-    <div class="eyebrow">技能市集 Prototype v0.4</div>
-    <h1>把喜歡的技能裝進你的百寶袋</h1>
-    <p>工具都免費安裝、開啟即用；AI 小幫手安裝後可在站內生成，每次花一點小魚乾。現在也收錄了 100 組生圖指令庫（日系海報、拼貼、公仔、Threads 熱門特效…），點卡片看完整 Prompt，複製貼到 ChatGPT／Gemini／Midjourney 就能用。</p>
-    <div class="seg" id="seg">
-      <button data-v="market" class="on">🛍 技能市集</button>
-      <button data-v="mine">🎒 我的技能 <b id="mineCount">0</b></button>
+  <div class="wrap shop-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-sec">
+        <div class="side-title">瀏覽</div>
+        <div class="seg vertical" id="seg">
+          <button data-v="market" class="on">🛍 技能市集</button>
+          <button data-v="mine">🎒 我的技能 <b id="mineCount">0</b></button>
+        </div>
+      </div>
+      <div class="side-sec">
+        <div class="side-title">分類</div>
+        <nav class="chips vertical" id="chips"></nav>
+      </div>
+      <div class="side-sec">
+        <div class="side-title">帳戶</div>
+        <div class="side-actions">
+          <button class="iconbtn" id="installBtn" style="display:none">📲 <span class="lbl">安裝到裝置</span></button>
+          <button class="iconbtn" id="settingsBtn">🔑 <span class="lbl">AI 設定</span></button>
+          <button class="iconbtn" id="histBtn">📜 <span class="lbl">紀錄</span></button>
+          <button class="iconbtn" id="topupBtn">🐟 <span class="lbl">儲值</span></button>
+        </div>
+      </div>
+    </aside>
+    <div class="main-col">
+      <section class="hero">
+        <div class="eyebrow">技能市集 Prototype v0.4</div>
+        <h1>把喜歡的技能裝進你的百寶袋</h1>
+        <p>工具都免費安裝、開啟即用；AI 小幫手安裝後可在站內生成，每次花一點小魚乾。現在也收錄了 100 組生圖指令庫（日系海報、拼貼、公仔、Threads 熱門特效…），點卡片看完整 Prompt，複製貼到 ChatGPT／Gemini／Midjourney 就能用。</p>
+      </section>
+      <div class="grid" id="grid"></div>
     </div>
-  </section>
-  <div class="wrap">
-    <nav class="chips" id="chips"></nav>
-    <div class="grid" id="grid"></div>
   </div>
   <footer class="wrap">喵喵指令舖 · 技能市集 v0.3 &nbsp;|&nbsp; 安裝＝購買（一次性）· 工具開啟連到你的網址 · AI 生成每次計費</footer>
 </main>
@@ -349,12 +383,32 @@ const SKILLS = [
   { id:'cheer', ico:'☀️', title:'每日晨間鼓勵語', cat:'life', type:'ai', price:0, perUse:5, desc:'一句心情 → 暖心小語。',
     fields:[{key:'mood',type:'text',label:'今天的心情/狀況',ph:'例：昨晚沒睡好，今天有三堂課'}],
     prompt:v=>`根據狀況寫 2–3 句、溫暖不油膩的繁體中文晨間鼓勵語，結尾配一句可愛貓咪 emoji 小語。狀況：${v.mood}` },
+
+  // ---------- 文案發想（站內生成）----------
+  { id:'copy_ad_slogan', ico:'📢', title:'廣告標語產生器', cat:'copy', type:'ai', price:0, perUse:10, desc:'一個主題 → 5句吸睛廣告標語。',
+    fields:[{key:'item',type:'textarea',label:'商品 / 主題',ph:'例：手工冷萃咖啡，果酸明亮，冷藏保存7天'}],
+    prompt:v=>`你是資深文案。根據以下主題，寫出5句不同角度、精煉有記憶點的繁體中文廣告標語，每句15字以內，標號列出。主題：${v.item}` },
+  { id:'copy_promo', ico:'⏰', title:'限時促銷文案', cat:'copy', type:'ai', price:0, perUse:10, desc:'活動資訊 → 有緊迫感的促銷文案。',
+    fields:[{key:'info',type:'textarea',label:'活動內容',ph:'例：全館85折，只到週日晚上12點，滿千再折100'}],
+    prompt:v=>`你是電商小編。根據以下活動資訊，寫一則繁體中文限時促銷文案，語氣要有緊迫感與行動呼籲，適度使用 emoji，3–5句。活動資訊：${v.info}` },
+  { id:'copy_unbox', ico:'📦', title:'開箱文大綱', cat:'copy', type:'ai', price:0, perUse:12, desc:'商品特色 → 開箱文架構大綱。',
+    fields:[{key:'feat',type:'textarea',label:'商品特色 / 賣點',ph:'例：無線吸塵器，重1.2kg，續航45分鐘，靜音設計'}],
+    prompt:v=>`你是部落客。根據以下商品特色，列出一篇開箱文的架構大綱：1) 吸睛引言 2) 三個段落標題與各自重點 3) 使用心得摘要 4) 結尾呼籲。繁體中文，條列呈現。商品特色：${v.feat}` },
+  { id:'copy_social_caption', ico:'📱', title:'小紅書／IG風格文案', cat:'copy', type:'ai', price:0, perUse:12, desc:'主題 → 小紅書/IG風格圖文文案＋hashtag。',
+    fields:[{key:'topic',type:'textarea',label:'主題 / 商品',ph:'例：秋天限定楓糖拿鐵，溫暖療癒'}],
+    prompt:v=>`你是社群小編。根據以下主題，寫一則小紅書/IG風格圖文文案，語氣活潑有共鳴感，適度分段與使用 emoji，結尾附5個相關 hashtag。繁體中文。主題：${v.topic}` },
+  { id:'copy_brand_story', ico:'📖', title:'品牌故事草稿', cat:'copy', type:'ai', price:0, perUse:15, desc:'品牌起源/理念 → 一段品牌故事短文。',
+    fields:[{key:'origin',type:'textarea',label:'品牌起源 / 理念 / 初衷',ph:'例：因為想讓上班族也能喝到手沖等級的咖啡，2021年創立'}],
+    prompt:v=>`你是品牌顧問。根據以下品牌起源與理念，寫一段150–200字的繁體中文品牌故事，語氣真誠、有畫面感，適合放在官網「關於我們」頁面。品牌資訊：${v.origin}` },
+  { id:'copy_viral_title', ico:'🔥', title:'爆款標題產生器', cat:'copy', type:'ai', price:0, perUse:8, desc:'內容主題 → 5個吸睛標題。',
+    fields:[{key:'topic',type:'text',label:'內容主題',ph:'例：小資族理財第一步'}],
+    prompt:v=>`你是內容編輯。根據以下主題，產生5個不同風格（懸念式、數字式、情感式、教學式、反差式）的繁體中文吸睛標題，適合社群貼文或部落格文章。主題：${v.topic}` },
 ].concat((window.IMG_PROMPTS||[]).map(p=>({
   id:p.id, ico:p.ico, title:p.title, cat:p.cat, type:'prompt', price:0, img:p.img,
   desc:p.desc, note:p.note, promptText:p.prompt, src:p.source
 })));
-const CATS={read:'閱讀',teach:'教學',lang:'語言',biz:'商務',life:'生活',jpstyle:'日系拼貼',grid9:'九宮格大頭貼',poster:'活動字體海報',doll:'公仔指令',threads:'Threads爆紅'};
-const CATCLASS={read:'cat-read',teach:'cat-teach',lang:'cat-lang',biz:'cat-biz',life:'cat-life',jpstyle:'cat-jp',grid9:'cat-grid',poster:'cat-poster',doll:'cat-doll',threads:'cat-threads'};
+const CATS={read:'閱讀',teach:'教學',lang:'語言',biz:'商務',life:'生活',copy:'文案發想',jpstyle:'日系拼貼',grid9:'九宮格大頭貼',poster:'活動字體海報',doll:'公仔指令',threads:'Threads爆紅'};
+const CATCLASS={read:'cat-read',teach:'cat-teach',lang:'cat-lang',biz:'cat-biz',life:'cat-life',copy:'cat-copy',jpstyle:'cat-jp',grid9:'cat-grid',poster:'cat-poster',doll:'cat-doll',threads:'cat-threads'};
 const PACKAGES=[{name:'小包',amt:100,bonus:0,price:'NT$ 60'},{name:'中包（最划算）',amt:300,bonus:30,price:'NT$ 160',best:true},{name:'大包',amt:800,bonus:120,price:'NT$ 400'}];
 
 /* ============ 儲存層（預覽用記憶體，GitHub Pages 自動用 localStorage）============ */
