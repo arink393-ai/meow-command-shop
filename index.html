@@ -72,6 +72,7 @@
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(244px,1fr));gap:16px;padding:12px 0 60px}
   .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 16px 16px;display:flex;flex-direction:column;transition:transform .16s,box-shadow .16s,border-color .16s}
+  .card-img{width:calc(100% + 32px);margin:-18px -16px 12px;aspect-ratio:4/3;object-fit:cover;border-radius:16px 16px 0 0;background:var(--paper-2);display:block}
   .card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#dcceb2}
   .card.owned{border-color:#cfe0c2;background:#fcfdf9}
   .card .ico{font-size:30px;line-height:1;margin-bottom:10px}
@@ -248,6 +249,7 @@
 <aside class="sheet right" id="promptSheet" aria-hidden="true">
   <div class="sheet-h"><span class="ico" id="pIco">🖼️</span><div><h2 id="pTitle">生圖指令</h2><p id="pDesc"></p></div><button class="x" data-close>×</button></div>
   <div class="sheet-b">
+    <img id="pImg" src="" alt="" style="display:none;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin-bottom:14px" referrerpolicy="no-referrer" />
     <div class="warn" id="pNote" style="display:none"></div>
     <div class="out" id="pText" style="white-space:pre-wrap;max-height:48vh;overflow-y:auto;background:var(--paper-2);border-radius:11px;padding:14px;font-size:13px;line-height:1.7"></div>
     <button class="run" id="pCopyBtn" style="margin-top:14px">複製指令 📋</button>
@@ -348,7 +350,7 @@ const SKILLS = [
     fields:[{key:'mood',type:'text',label:'今天的心情/狀況',ph:'例：昨晚沒睡好，今天有三堂課'}],
     prompt:v=>`根據狀況寫 2–3 句、溫暖不油膩的繁體中文晨間鼓勵語，結尾配一句可愛貓咪 emoji 小語。狀況：${v.mood}` },
 ].concat((window.IMG_PROMPTS||[]).map(p=>({
-  id:p.id, ico:p.ico, title:p.title, cat:p.cat, type:'prompt', price:0,
+  id:p.id, ico:p.ico, title:p.title, cat:p.cat, type:'prompt', price:0, img:p.img,
   desc:p.desc, note:p.note, promptText:p.prompt, src:p.source
 })));
 const CATS={read:'閱讀',teach:'教學',lang:'語言',biz:'商務',life:'生活',jpstyle:'日系拼貼',grid9:'九宮格大頭貼',poster:'活動字體海報',doll:'公仔指令',threads:'Threads爆紅'};
@@ -404,6 +406,7 @@ function renderGrid(){
   if(view==='mine'&&!list.length){ $('#grid').innerHTML='<div class="empty" style="grid-column:1/-1"><span class="big">🎒</span>百寶袋是空的，去市集逛逛吧！</div>'; return; }
   $('#grid').innerHTML=list.map(s=>`
     <div class="card ${owns(s.id)?'owned':''}">
+      ${s.img?`<img class="card-img" src="${s.img}" alt="${s.title} 範例圖" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" />`:''}
       <div class="ico">${s.ico}</div>
       <h3>${s.title} ${owns(s.id)?'<span class="owned-tag">已安裝</span>':''}</h3>
       <p class="d">${s.desc}</p>
@@ -436,6 +439,9 @@ function openSkill(id){
 }
 function openPromptCard(s){
   $('#pIco').textContent=s.ico; $('#pTitle').textContent=s.title; $('#pDesc').textContent=(s.src?'『'+s.src+'』 · ':'')+(s.desc||'');
+  const imgEl=$('#pImg');
+  if(s.img){ imgEl.src=s.img; imgEl.alt=s.title+' 範例圖'; imgEl.style.display='block'; imgEl.onerror=()=>{imgEl.style.display='none';}; }
+  else { imgEl.style.display='none'; imgEl.src=''; }
   const noteEl=$('#pNote');
   if(s.note){ noteEl.style.display='block'; noteEl.textContent=s.note; } else { noteEl.style.display='none'; }
   $('#pText').textContent=s.promptText||'';
