@@ -1,0 +1,13 @@
+{
+  "name": "喵喵指令舖",
+  "short_name": "喵喵指令舖",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#FBF6EC",
+  "theme_color": "#E27C4A",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
