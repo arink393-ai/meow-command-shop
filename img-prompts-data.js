@@ -1278,14 +1278,14 @@ Typography should feel like a refined vintage Japanese tourism publication: bold
 Vertical poster composition, approximately 3:4 ratio. Premium editorial design, minimalist, collectible travel print, sophisticated and timeless.
 
 Important: Do not simply apply a poster filter to the photograph. Reconstruct the photograph as an intentional graphic illustration while maintaining the visual identity and perspective of the original scene.` },
-{ id:'td20260919-photobook-1980s-portrait', img:'', ico:'📼', title:'80年代復古寫真感', cat:'photobook', source:'Threads（經 NOWnews／自由時報3C 轉載）',
+{ id:'td20260919-photobook-1980s-portrait', img:'https://images.unsplash.com/photo-1625360402898-f82bb21dd371?auto=format&fit=crop&w=800&q=70', ico:'📼', title:'80年代復古寫真感', cat:'photobook', source:'Threads（經 NOWnews／自由時報3C 轉載）',
   desc:'上傳一張清楚的人像照，AI把你重生成宛如1980年代拍立得攝影棚的復古寫真照，蓬鬆髮型、墊肩西裝、底片顆粒感一次到位。',
   note:'免費版ChatGPT也能用，但每天生成張數有限；先丟中文短版試試效果即可。',
   url:'https://www.nownews.com/news/6876332',
   prompt:`如果我活在80年代 會是什麼樣子？
 
 (英文版) Using my uploaded photo, show me what I would have looked like around 1980.` },
-{ id:'td20260919-physiognomy-guide-card', img:'', ico:'🔮', title:'面相分析指南資訊圖卡', cat:'physiognomy', source:'Threads @billy_nien',
+{ id:'td20260919-physiognomy-guide-card', img:'https://images.unsplash.com/photo-1557296387-5358ad7997bb?auto=format&fit=crop&w=800&q=70', ico:'🔮', title:'面相分析指南資訊圖卡', cat:'physiognomy', source:'Threads @billy_nien',
   desc:'上傳一張人像照，AI生成一張雜誌感的「面相分析指南」資訊圖卡，五官逐一標註加氣質解讀，很適合發限動炫耀。',
   note:'這是Threads上原始流傳的版本；想要更完整的雷達圖或氣質評語，可以自己在後面加一句「請再加上整體氣質評語與五官能量雷達圖」。',
   url:'https://www.threads.com/@billy_nien/post/DXgiMiDlA8R',
@@ -1297,13 +1297,13 @@ Important: Do not simply apply a poster filter to the photograph. Reconstruct th
 1. 標題：「面相分析指南」
 2. 副標：「從五官與輪廓看性格、氣質與發展潛力」
 3. 人物臉部重點標註（額頭、眉毛、眼睛、鼻子、嘴巴、下巴、臉型，搭配簡短中文解析）` },
-{ id:'td20260919-outfit-color-analysis-card', img:'', ico:'🎨', title:'個人色彩分析穿搭圖卡', cat:'outfit', source:'Threads @aiposthub',
+{ id:'td20260919-outfit-color-analysis-card', img:'https://images.unsplash.com/photo-1578632292335-df3abbb0d586?auto=format&fit=crop&w=800&q=70', ico:'🎨', title:'個人色彩分析穿搭圖卡', cat:'outfit', source:'Threads @aiposthub',
   desc:'上傳人像照，AI幫你排出哪些服裝顏色顯氣色、哪些不適合，左右對比一目了然，像專業形象顧問報告。',
   url:'https://www.threads.com/@aiposthub/post/DXo2fRSAU0U/',
   prompt:`請根據我上傳的人像照片，製作一張高質感個人色彩分析圖卡。保留主角原本五官、膚色與臉型，透過左右或並排對比方式，展示不同服裝顏色穿在主角身上的效果，清楚區分「適合色」與「不適合色」。版面需乾淨時尚、像專業形象顧問報告，以視覺呈現為主，僅使用簡短標籤（如：推薦／普通／避免），高解析度、適合社群分享。` },
 
 /* ========== Facebook「AI咒語公社」社團（人工挑選，4組）========== */
-{ id:'fb-calla-lily-portrait', ico:'🌾', title:'陽明山海芋花田旅行人像', cat:'photobook', source:'AI咒語公社（Facebook社團）・陈英菁', tool:'ChatGPT（GPT-4o 生圖）',
+{ id:'fb-calla-lily-portrait', img:'https://images.unsplash.com/photo-1644901381396-df528f641427?auto=format&fit=crop&w=800&q=70', ico:'🌾', title:'陽明山海芋花田旅行人像', cat:'photobook', source:'AI咒語公社（Facebook社團）・陈英菁', tool:'ChatGPT（GPT-4o 生圖）',
   desc:'電影級旅行人像攝影，人物背對鏡頭回眸花田，高級、安靜、有故事感。',
   note:'需上傳一張清楚的人物照片作為外貌參考；地點與服裝細節可依你的照片調整。',
   prompt:`9:16直式，超寫實電影級春日人像攝影，8K HDR，RAW原生質感，85mm f/1.4，電影級淺景深，柔和午後自然光。
@@ -1317,7 +1317,7 @@ Important: Do not simply apply a poster filter to the photograph. Reconstruct th
 高級、成熟、自然、安靜、有故事感。
 禁止AI換臉、禁止臉型變化、禁止年輕化、禁止網紅臉、禁止過度磨皮、禁止誇張姿勢。` },
 
-{ id:'fb-graffiti-real-me', ico:'🎨', title:'真人 × 塗鴉自畫像', cat:'photobook', source:'AI咒語公社（Facebook社團）・Manki Hui', tool:'ChatGPT（GPT-4o 生圖）',
+{ id:'fb-graffiti-real-me', img:'https://images.unsplash.com/photo-1601913463731-cfba9fd31ed3?auto=format&fit=crop&w=800&q=70', ico:'🎨', title:'真人 × 塗鴉自畫像', cat:'photobook', source:'AI咒語公社（Facebook社團）・Manki Hui', tool:'ChatGPT（GPT-4o 生圖）',
   desc:'把你自己變成巨大Q版街頭塗鴉壁畫，本人站在畫前形成強烈反差。',
   note:'需上傳一張清楚的人物照片；會嚴格保留你的臉型五官，不換臉不換人。',
   prompt:`3:4直式、滿幅、超寫實電影級街頭攝影。
@@ -1340,7 +1340,7 @@ Ultra-photorealistic真人攝影 × Raw Urban Graffiti × Giant Chibi Street Art
 【禁止】
 不要普通動漫、不要乾淨卡通、不要3D玩具感、不要塑膠公仔、不要精緻商業壁畫、不要夜景、不要霓虹燈、不要雨水、不要濕地倒影、不要文字、Logo、品牌名稱、簽名、水印或任何可讀文字。` },
 
-{ id:'fb-sakura-bicycle-portrait', ico:'🌸', title:'櫻花驚落春日人像', cat:'photobook', source:'AI咒語公社（Facebook社團）・Pieces Art', tool:'ChatGPT（GPT-4o 生圖）',
+{ id:'fb-sakura-bicycle-portrait', img:'https://images.unsplash.com/photo-1744205961391-f977ff35bfa8?auto=format&fit=crop&w=800&q=70', ico:'🌸', title:'櫻花驚落春日人像', cat:'photobook', source:'AI咒語公社（Facebook社團）・Pieces Art', tool:'ChatGPT（GPT-4o 生圖）',
   desc:'電影劇照級櫻花小徑人像，推著復古腳踏車被漫天櫻花吸引的瞬間。',
   note:'需上傳一張清楚的人物照片（主要參考臉部）；服裝配色可依你的照片調整。',
   prompt:`9:16豎版，原始比例。
@@ -1387,7 +1387,7 @@ Ultra-photorealistic真人攝影 × Raw Urban Graffiti × Giant Chibi Street Art
 負面
 CG、動漫、插畫、3D人物、塑料皮膚、過度磨皮、過度美顏、魚眼、極端仰拍、透視變形、人體比例錯誤、畸形手指、額外手臂、額外手指、臉部被手遮擋、直視鏡頭、誇張表情、僵硬姿勢、雜亂背景。` },
 
-{ id:'fb-horror-nun-creature', ico:'👹', title:'修女怪物恐怖概念設計', cat:'model3d', source:'AI咒語公社（Facebook社團）・Peter Chew', tool:'ChatGPT（GPT-4o 生圖，Unreal Engine 5 渲染風格）',
+{ id:'fb-horror-nun-creature', img:'https://images.unsplash.com/photo-1667424173801-7616c1866302?auto=format&fit=crop&w=800&q=70', ico:'👹', title:'修女怪物恐怖概念設計', cat:'model3d', source:'AI咒語公社（Facebook社團）・Peter Chew', tool:'ChatGPT（GPT-4o 生圖，Unreal Engine 5 渲染風格）',
   desc:'生化怪物與惡魔修女融合的恐怖概念角色設計，暗黑哥德教堂場景。',
   note:'純創意角色設計，不需上傳照片。原作者提醒：這組指令生出來的圖偏恐怖，介意的話可以請 AI 改生成可愛版本。',
   prompt:`核心提示詞 (Core Prompt)
@@ -1402,24 +1402,24 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
 （以上的提示詞生出來的圖太恐怖，可以請 AI 改生一張可愛版的提示詞：make a cute Valak, 16:9）` },
 
 /* ========== 動畫／影片生成指令（2組）========== */
-{ id:'anim-kling-product-rotate', ico:'🧴', title:'產品旋轉特寫動態廣告', cat:'anim', source:'foreverwebs.com《Kling AI 完整教學》',
+{ id:'anim-kling-product-rotate', img:'https://images.unsplash.com/photo-1785581778868-79100f7fe56c?auto=format&fit=crop&w=800&q=70', ico:'🧴', title:'產品旋轉特寫動態廣告', cat:'anim', source:'foreverwebs.com《Kling AI 完整教學》',
   tool:'Kling AI', url:'https://foreverwebs.com/blog/kling-ai-complete-tutorial-video-generation-guide-2026',
   desc:'把靜態商品照變成一段緩慢旋轉、鏡頭慢慢拉近的質感廣告短片，適合保養品、香水等精品類商品。',
   note:'先用 AI 生一張商品靜態圖（或用實拍照），再丟進 Kling AI 的「圖生影片」功能貼上這段提示詞即可。',
   prompt:`A white moisturizer bottle slowly rotates on a marble surface, camera slowly zooms in, soft morning light from the left, clean minimal aesthetic, 4K product commercial style` },
-{ id:'anim-kling-city-drone', ico:'🌃', title:'未來城市空拍運鏡動畫', cat:'anim', source:'foreverwebs.com《Kling AI 完整教學》',
+{ id:'anim-kling-city-drone', img:'https://images.unsplash.com/photo-1573767291321-c0af2eaf5266?auto=format&fit=crop&w=800&q=70', ico:'🌃', title:'未來城市空拍運鏡動畫', cat:'anim', source:'foreverwebs.com《Kling AI 完整教學》',
   tool:'Kling AI', url:'https://foreverwebs.com/blog/kling-ai-complete-tutorial-video-generation-guide-2026',
   desc:'賽博龐克風格的夜景城市空拍，鏡頭緩緩拉遠露出天際線，適合科技品牌形象片、開場動畫。',
   note:'關鍵字結構是「主體＋鏡頭運動＋光線氛圍＋風格」，換掉主體描述就能套用到其他場景。',
   prompt:`Aerial view of a futuristic city at night, camera slowly pulls back revealing the skyline, blue and purple neon lights reflecting on wet streets, cinematic drone shot, cyberpunk aesthetic` },
 
 /* ========== 音樂生成指令（2組，Suno AI）========== */
-{ id:'music-suno-cyberpunk-drive', ico:'🎧', title:'賽博龐克夜間駕駛電子樂', cat:'music', source:'purestudio.com.tw《ChatGPT 撰寫 Suno 提示詞》',
+{ id:'music-suno-cyberpunk-drive', img:'https://images.unsplash.com/photo-1503058474900-cb76710f9cd1?auto=format&fit=crop&w=800&q=70', ico:'🎧', title:'賽博龐克夜間駕駛電子樂', cat:'music', source:'purestudio.com.tw《ChatGPT 撰寫 Suno 提示詞》',
   tool:'Suno AI', url:'https://www.purestudio.com.tw/blog/chatgptsuno/',
   desc:'用「風格標籤」語法快速產生一首暗黑氛圍的夜間駕駛電子樂，貼到 Suno 的風格欄位即可。',
   note:'Suno 會把標籤當作「加權提示」而非死板清單，標籤越具體（曲風/情緒/年代）效果越準。',
   prompt:`[style: gritty night drive, mood: dark, era: futuristic]` },
-{ id:'music-suno-symphonic-metal', ico:'🎼', title:'交響金屬史詩詠嘆調（完整分軌）', cat:'music', source:'purestudio.com.tw《ChatGPT 撰寫 Suno 提示詞》',
+{ id:'music-suno-symphonic-metal', img:'https://images.unsplash.com/photo-1551696785-927d4ac2d35b?auto=format&fit=crop&w=800&q=70', ico:'🎼', title:'交響金屬史詩詠嘆調（完整分軌）', cat:'music', source:'purestudio.com.tw《ChatGPT 撰寫 Suno 提示詞》',
   tool:'Suno AI', url:'https://www.purestudio.com.tw/blog/chatgptsuno/',
   desc:'進階玩法：把整首歌拆成 intro／verse／chorus 分段下指令，各段可指定不同的編曲與人聲風格，適合想做完整結構歌曲的人。',
   note:'貼到 Suno 自訂模式的歌詞/風格欄位，[ ] 內是控制標籤，可依需求增減段落。',
@@ -1429,24 +1429,24 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
 [chorus | choir: dark choirs, layered, powerful]` },
 
 /* ========== 影片生成（2組，Kling AI）========== */
-{ id:'videogen-kling-taiwan-valley', ico:'🎬', title:'台灣山谷夕陽空拍紀錄片風', cat:'videogen', source:'foreverwebs.com《Kling AI 完整教學》',
+{ id:'videogen-kling-taiwan-valley', img:'https://images.unsplash.com/photo-1776158830513-e093fb052a84?auto=format&fit=crop&w=800&q=70', ico:'🎬', title:'台灣山谷夕陽空拍紀錄片風', cat:'videogen', source:'foreverwebs.com《Kling AI 完整教學》',
   tool:'Kling AI', url:'https://foreverwebs.com/blog/kling-ai-complete-tutorial-video-generation-guide-2026',
   desc:'仿 BBC 紀錄片質感的空拍運鏡，適合旅遊行銷、品牌形象片開場。',
   note:'公式：主體＋動作描述＋鏡頭運動＋環境/光線＋風格/情緒＋技術規格，六元素寫齊可控性大幅提升。',
   prompt:`Golden sunset over a lush green mountain valley in Taiwan, low clouds drift slowly through the peaks, camera gently pans right, serene and majestic atmosphere, nature documentary style` },
-{ id:'videogen-kling-cafe-story', ico:'☕', title:'咖啡廳人物故事微電影感', cat:'videogen', source:'foreverwebs.com《Kling AI 完整教學》',
+{ id:'videogen-kling-cafe-story', img:'https://images.unsplash.com/photo-1581832097738-9810da6766c2?auto=format&fit=crop&w=800&q=70', ico:'☕', title:'咖啡廳人物故事微電影感', cat:'videogen', source:'foreverwebs.com《Kling AI 完整教學》',
   tool:'Kling AI', url:'https://foreverwebs.com/blog/kling-ai-complete-tutorial-video-generation-guide-2026',
   desc:'手持鏡頭、逆光散景的生活感短片，適合品牌故事廣告、IG 限動素材。',
   note:'把人物年齡、動作、光線來源寫清楚，AI 更容易抓到「自然不做作」的感覺。',
   prompt:`A young woman in her 30s sits at a cafe table, smiles while reading a book, warm afternoon sunlight through the window, bokeh background, candid photography style, handheld camera feel` },
 
 /* ========== 分鏡（2組）========== */
-{ id:'storyboard-character-subway', ico:'🎞️', title:'角色一致性分鏡：捷運站清晨', cat:'storyboard', source:'seektik.com《AI 分鏡畫面提示詞指南》',
+{ id:'storyboard-character-subway', img:'https://images.unsplash.com/photo-1556624651-1f527cdf6508?auto=format&fit=crop&w=800&q=70', ico:'🎞️', title:'角色一致性分鏡：捷運站清晨', cat:'storyboard', source:'seektik.com《AI 分鏡畫面提示詞指南》',
   tool:'即夢/可靈等生圖工具＋角色鎖定', url:'https://www.seektik.com/ai-storyboard-image-prompt-guide/',
   desc:'解決 AI 分鏡最大痛點「跨鏡頭角色跑掉」：把角色外觀固定寫死，每一鏡只換場景與情緒。',
   note:'文章的 8 模塊寫法：鏡頭編號／劇情任務／固定角色／場景環境／動作情緒／景別構圖／光線色調／負面限制。',
   prompt:`固定角色林夏，22歲城市插畫師，鵝蛋臉，杏眼，深棕色齊肩短髮，空氣瀏海，米白色針織開衫，淺藍色襯衫，深灰色半身裙，銀色小圓耳釘。清晨地鐵站台，冷色燈光，背景人群虛化。近景，林夏低頭看手機，眉頭微皺，眼神從疑惑變成緊張，手指停在螢幕上。溫柔電影感，細膩日系插畫風，低飽和藍灰色調。` },
-{ id:'storyboard-8module-template', ico:'📋', title:'8模塊分鏡萬用填空模板', cat:'storyboard', source:'seektik.com《AI 分鏡畫面提示詞指南》（依其架構延伸）',
+{ id:'storyboard-8module-template', img:'https://images.unsplash.com/photo-1730890754876-1657029c9eb9?auto=format&fit=crop&w=800&q=70', ico:'📋', title:'8模塊分鏡萬用填空模板', cat:'storyboard', source:'seektik.com《AI 分鏡畫面提示詞指南》（依其架構延伸）',
   tool:'即夢/可靈/Midjourney', url:'https://www.seektik.com/ai-storyboard-image-prompt-guide/',
   desc:'把任何劇本轉成分鏡的萬用骨架，複製後把方括號換成自己的角色與場景就能用，適合簡報提案、廣告腳本前期視覺化。',
   note:'固定角色描述那一段每一鏡都要「原封不動複製」，才能維持同一個人物長相不跑掉。',
@@ -1460,12 +1460,12 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
 負面限制：[不要出現的元素，例如比例失調、多餘肢體、文字浮水印]` },
 
 /* ========== 配音（2組，ElevenLabs 情緒標籤）========== */
-{ id:'voiceover-elevenlabs-emotion-tags', ico:'🎙️', title:'情緒標籤旁白：故事型口白', cat:'voiceover', source:'pcrookie.com《ElevenLabs 完整教學 2026》（依文章介紹的標籤語法自製範例）',
+{ id:'voiceover-elevenlabs-emotion-tags', img:'https://images.unsplash.com/photo-1589903308904-1010c2294adc?auto=format&fit=crop&w=800&q=70', ico:'🎙️', title:'情緒標籤旁白：故事型口白', cat:'voiceover', source:'pcrookie.com《ElevenLabs 完整教學 2026》（依文章介紹的標籤語法自製範例）',
   tool:'ElevenLabs（v3 情緒標籤功能）', url:'https://pcrookie.com/elevenlabs-ai-voice-tutorial-2026/',
   desc:'ElevenLabs v3 支援在文字前插入情緒標籤（如 [excited]／[sad]／[whisper]／[laughs]／[sighs]），讓同一段旁白隨劇情轉換語氣，適合有聲書、Podcast 開場、品牌故事影片口白。',
   note:'文章只介紹標籤種類、沒給完整範例，這段是依標籤語法自己組的示範，貼到 ElevenLabs 文字轉語音欄位即可測試。',
   prompt:`[whispers] 深夜，辦公室只剩我一個人。[sighs] 這個專案，已經改到第八版了。[excited] 但剛剛，客戶回信了——[laughs] 他說，這次終於對了。` },
-{ id:'voiceover-brand-ad-style', ico:'📻', title:'品牌廣告配音風格描述', cat:'voiceover', source:'pcrookie.com《ElevenLabs 完整教學 2026》',
+{ id:'voiceover-brand-ad-style', img:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=70', ico:'📻', title:'品牌廣告配音風格描述', cat:'voiceover', source:'pcrookie.com《ElevenLabs 完整教學 2026》',
   tool:'ElevenLabs / 其他 TTS 工具', url:'https://pcrookie.com/elevenlabs-ai-voice-tutorial-2026/',
   desc:'用文字描述「想要的聲音質感」，用來挑選聲音庫裡最接近的 voice，或給文案加註語氣指示給配音員/AI參考。',
   note:'中文配音技巧：適度加語氣詞（啊、喔、嗯）讓對話更口語，數字與標點斷句寫清楚能減少機械感。',
@@ -1474,24 +1474,24 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
 用途：品牌形象影片旁白，30秒版本，開頭要能在3秒內抓住注意力。` },
 
 /* ========== 室內設計（2組，Midjourney）========== */
-{ id:'interior-scandi-minimal', ico:'🛋️', title:'北歐極簡客廳', cat:'interior', source:'Mason AI Lab《AI 空間渲染實戰》',
+{ id:'interior-scandi-minimal', img:'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=70', ico:'🛋️', title:'北歐極簡客廳', cat:'interior', source:'Mason AI Lab《AI 空間渲染實戰》',
   tool:'Midjourney', url:'https://masonailab.com/career/ai-interior-rendering/',
   desc:'淺色木地板＋白牆＋亞麻織品的北歐極簡風格，適合房仲賣屋情境圖、居家品牌形象。',
   note:'公式：空間類型＋設計風格＋色調/材質＋光線＋關鍵元素＋攝影風格，--no 後面加不想出現的元素。',
   prompt:`Interior of a modern Scandinavian minimalist living room, light oak flooring, white walls, linen textiles, soft morning light from large windows, minimal furniture, clean lines, eye level perspective --ar 16:9 --no cluttered, messy, plastic furniture, neon lights` },
-{ id:'interior-japanese-zen', ico:'🎋', title:'日式和風室內', cat:'interior', source:'Mason AI Lab《AI 空間渲染實戰》',
+{ id:'interior-japanese-zen', img:'https://images.unsplash.com/photo-1715388693816-443d278beffb?auto=format&fit=crop&w=800&q=70', ico:'🎋', title:'日式和風室內', cat:'interior', source:'Mason AI Lab《AI 空間渲染實戰》',
   tool:'Midjourney', url:'https://masonailab.com/career/ai-interior-rendering/',
   desc:'榻榻米＋障子拉門＋禪意庭院借景的和風空間，適合民宿宣傳、室內設計提案簡報。',
   note:'把「檜木」這類具體材質名詞寫進去，比只寫 wood 更容易生出想要的質感。',
   prompt:`Japanese interior with tatami flooring, shoji screen partition, warm wood tones (檜木), zen garden elements visible through windows, diffused daylight, minimal decor, traditional aesthetic --ar 16:9` },
 
 /* ========== 海報設計（2組）========== */
-{ id:'posterdesign-office-campaign', ico:'📢', title:'公司內部活動宣傳海報', cat:'posterdesign', source:'104職場力《ChatGPT生成圖片別只寫幫我做海報》',
+{ id:'posterdesign-office-campaign', img:'https://images.unsplash.com/photo-1563050860-87d45eaaeabb?auto=format&fit=crop&w=800&q=70', ico:'📢', title:'公司內部活動宣傳海報', cat:'posterdesign', source:'104職場力《ChatGPT生成圖片別只寫幫我做海報》',
   tool:'ChatGPT（Images 2.0）', url:'https://blog.104.com.tw/chatgpt-image-workplace-visual-prompt-guide/',
   desc:'把「六要素」（素材類型／使用場景／目標對象／核心訊息／視覺風格／版面需求）寫進提示詞，海報一次到位不用來回修。',
   note:'把方括號內容換成自己的活動資訊即可，其餘結構照抄。',
   prompt:`生成一張公司內部活動宣導海報。活動主題：員工健康月，目標對象：公司全體員工，使用場景：內部公告、公司通訊軟體，風格：明亮、友善、專業、溫暖、有活力，版面需求：上方保留主標題區，下方保留活動日期與資訊區，色彩：綠色、藍色、白色為主，尺寸：A4直式，避免：太卡通、太醫療、畫面太擁擠` },
-{ id:'posterdesign-product-launch', ico:'🚀', title:'新品發表會海報', cat:'posterdesign', source:'104職場力《ChatGPT生成圖片別只寫幫我做海報》（依六要素框架延伸）',
+{ id:'posterdesign-product-launch', img:'https://images.unsplash.com/photo-1684395882817-030e24c0322a?auto=format&fit=crop&w=800&q=70', ico:'🚀', title:'新品發表會海報', cat:'posterdesign', source:'104職場力《ChatGPT生成圖片別只寫幫我做海報》（依六要素框架延伸）',
   tool:'ChatGPT（Images 2.0）', url:'https://blog.104.com.tw/chatgpt-image-workplace-visual-prompt-guide/',
   desc:'同一套六要素框架換個場景：面向客戶與媒體的產品發表會宣傳圖，質感要求更高。',
   note:'記得保留文字區塊位置的描述，不然 AI 生成的標題文字常常會糊掉或拼錯字，最後還是要自己疊字。',
