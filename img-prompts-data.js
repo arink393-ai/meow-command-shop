@@ -1301,4 +1301,103 @@ Important: Do not simply apply a poster filter to the photograph. Reconstruct th
   desc:'上傳人像照，AI幫你排出哪些服裝顏色顯氣色、哪些不適合，左右對比一目了然，像專業形象顧問報告。',
   url:'https://www.threads.com/@aiposthub/post/DXo2fRSAU0U/',
   prompt:`請根據我上傳的人像照片，製作一張高質感個人色彩分析圖卡。保留主角原本五官、膚色與臉型，透過左右或並排對比方式，展示不同服裝顏色穿在主角身上的效果，清楚區分「適合色」與「不適合色」。版面需乾淨時尚、像專業形象顧問報告，以視覺呈現為主，僅使用簡短標籤（如：推薦／普通／避免），高解析度、適合社群分享。` },
+
+/* ========== Facebook「AI咒語公社」社團（人工挑選，4組）========== */
+{ id:'fb-calla-lily-portrait', ico:'🌾', title:'陽明山海芋花田旅行人像', cat:'photobook', source:'AI咒語公社（Facebook社團）・陈英菁', tool:'ChatGPT（GPT-4o 生圖）',
+  desc:'電影級旅行人像攝影，人物背對鏡頭回眸花田，高級、安靜、有故事感。',
+  note:'需上傳一張清楚的人物照片作為外貌參考；地點與服裝細節可依你的照片調整。',
+  prompt:`9:16直式，超寫實電影級春日人像攝影，8K HDR，RAW原生質感，85mm f/1.4，電影級淺景深，柔和午後自然光。
+陽明山三月海芋花田，大片白色海芋從前景延伸至遠方山坡，翠綠葉片與柔和霧氣交織，春日天空微微放晴，淡淡金色自然光穿過雲層。
+成年東亞女性穿著高級奶茶色長版風衣、象牙白內搭、深咖啡色長裙與棕色皮革短靴，搭配精緻小型皮革手袋與低調金色耳飾。
+人物背對鏡頭站在花田小徑中央，身體自然向右側轉動，肩膀微微回轉，回頭看向身後盛開的海芋花田。
+一隻手自然扶著風衣腰帶，另一隻手輕輕垂落；頭髮被山風吹起少量自然髮絲。
+表情平靜、溫柔、帶著淡淡滿足感，不誇張微笑，不直視鏡頭。
+採用85mm鏡頭壓縮花海，讓大量白色海芋在人物身後形成柔和而壯觀的白色背景；前景少量海芋自然虛化。
+畫面像旅行電影最後一幕：她停下腳步，回頭看了一眼整片春天。
+高級、成熟、自然、安靜、有故事感。
+禁止AI換臉、禁止臉型變化、禁止年輕化、禁止網紅臉、禁止過度磨皮、禁止誇張姿勢。` },
+
+{ id:'fb-graffiti-real-me', ico:'🎨', title:'真人 × 塗鴉自畫像', cat:'photobook', source:'AI咒語公社（Facebook社團）・Manki Hui', tool:'ChatGPT（GPT-4o 生圖）',
+  desc:'把你自己變成巨大Q版街頭塗鴉壁畫，本人站在畫前形成強烈反差。',
+  note:'需上傳一張清楚的人物照片；會嚴格保留你的臉型五官，不換臉不換人。',
+  prompt:`3:4直式、滿幅、超寫實電影級街頭攝影。
+【人物身份｜最高優先】
+以上傳照片中的人物作為唯一身份與外貌參考，不論男女。完整保留原人物可辨識的臉型、五官比例、眼睛、眉毛、鼻子、嘴唇、髮型、膚色、年齡感及自然特徵。不要換臉、不要美化、不要改變性別、不要年輕化、不要生成陌生臉孔。
+【核心概念】
+真人走進自己的街頭塗鴉作品。真人站在城市街頭的大型塗鴉牆前，牆上是一幅巨大、極具街頭藝術感的本人Q版塗鴉角色，必須一眼看出是真人的Q版化身。真人像剛完成自己的大型塗鴉作品，自然、自信、有型，形成「真人 × Q版自己」的強烈反差。
+【Q版街頭塗鴉】
+Q版角色不是普通卡通、動漫或3D公仔，而是真正的Urban Graffiti Street Art。採用誇張大頭、小身體比例，強烈街頭姿態與個性表情。使用粗獷手繪噴漆輪廓、厚重線條、鮮艷噴漆、顏色漸層、漆霧、飛白、噴濺、滴漆及不規則邊緣。部分顏色故意噴出輪廓，呈現真實噴漆創作的粗獷與失控感。
+融合90年代街頭塗鴉、Graffiti Mascot、Sticker Art及Urban Street Art視覺語言。Q版角色保留真人最具辨識度的髮型、眼鏡、五官及個人氣質，但以誇張、粗獷、潮流的街頭塗鴉方式重新演繹。
+【環境｜陽光白天】
+晴朗明亮的都市街頭，陽光普照，清澈藍天，強烈但自然的日間陽光從建築之間照射進街巷，形成漂亮的光影與陰影。大型粗糙牆面充滿多年累積的重疊塗鴉、舊漆、剝落牆面、噴漆痕跡、漆霧、滴漆及顏料飛濺。
+牆上的鮮艷塗鴉在陽光下格外突出，呈現充滿活力、自由、叛逆及潮流感的街頭藝術氛圍。地面乾爽，不要雨水、積水或霓虹倒影。
+【真人造型】
+人物服裝保留原照片人物特色，同時自然融入街頭藝術環境，可帶有時尚Urban Streetwear元素，但不能改變人物身份或個人辨識特徵。
+【構圖】
+真人與巨大Q版塗鴉同時成為視覺主角。利用巨型Q版角色與真人之間的尺度差製造強烈視覺衝擊。真人站在塗鴉牆前，可手持噴漆罐，呈現剛完成作品的瞬間。低角度電影構圖、強烈透視、自然景深、真實陽光、細膩皮膚與牆面材質、高級廣告攝影質感。
+【整體風格】
+Ultra-photorealistic真人攝影 × Raw Urban Graffiti × Giant Chibi Street Art × Sunny Day Cinema。真實、粗獷、潮流、有藝術家手感，Q版要有真正噴漆塗鴉的街頭味，而不是乾淨數碼插畫。
+【禁止】
+不要普通動漫、不要乾淨卡通、不要3D玩具感、不要塑膠公仔、不要精緻商業壁畫、不要夜景、不要霓虹燈、不要雨水、不要濕地倒影、不要文字、Logo、品牌名稱、簽名、水印或任何可讀文字。` },
+
+{ id:'fb-sakura-bicycle-portrait', ico:'🌸', title:'櫻花驚落春日人像', cat:'photobook', source:'AI咒語公社（Facebook社團）・Pieces Art', tool:'ChatGPT（GPT-4o 生圖）',
+  desc:'電影劇照級櫻花小徑人像，推著復古腳踏車被漫天櫻花吸引的瞬間。',
+  note:'需上傳一張清楚的人物照片（主要參考臉部）；服裝配色可依你的照片調整。',
+  prompt:`9:16豎版，原始比例。
+超寫實真人電影攝影，RAW Photo，8K UHD，HDR，高品質電影劇照，自然春日光線，真實皮膚、髮絲、布料與自行車材質，真實人體比例，淺景深，細微電影顆粒。
+人物
+使用上傳圖片作為人物外觀參考，主要參考臉部的自然外觀、五官比例與整體氣質。
+人物為自然、清秀、親和、甜美的年輕女性。
+自然中長髮，柔軟蓬鬆，幾縷髮絲隨微風吹動。
+戴柔軟白色圓頂畫家帽。
+穿白色細針織圓領毛衣、淺奶油杏色高腰A字中短裙、奶油白短襪與奶油色圓頭瑪麗珍鞋。
+整體色彩為白色、奶油色、淺杏色、淡櫻粉與嫩綠色。
+場景
+春日櫻花小徑。
+道路兩側是高大的櫻花樹，枝條向道路中央延伸，形成自然的櫻花拱廊。
+女性正在緩慢推著一輛帶小花籃的復古自行車。
+一片櫻花落在帽子與頭髮上。
+她自然地抬起一隻手，在臉側靠近帽簷的位置輕輕捏住花瓣。
+手部不遮擋臉部主要特徵。
+她微微抬頭，看向前上方正在落下的櫻花。
+此刻大量櫻花開始從樹冠飄落。
+她被眼前的景象吸引，表情呈現好奇、驚喜、安靜地愣住的瞬間。
+眼睛清澈明亮，嘴唇自然微微分開。
+不看鏡頭，不誇張表演。
+構圖
+中低機位，輕微仰拍。
+3/4側前方角度。
+人物完整入鏡，約佔畫面高度65%～72%。
+人物不要靠近鏡頭。
+完整呈現人物、自行車、櫻花拱廊與道路縱深。
+上方保留大量樹冠與落花空間。
+前景少量失焦櫻花形成自然框景，但不遮擋人物臉部。
+動態
+微風吹動髮絲、裙擺與樹枝。
+大量櫻花花瓣從樹冠緩慢飄落。
+前景、中景、背景都有不同距離的花瓣，形成自然縱深。
+櫻花雨浪漫、輕盈、密集，但不是暴風式飄落。
+畫面重點是：人物突然停下動作，被漫天櫻花吸引。
+光影
+春日下午柔和自然光。
+陽光穿過樹冠形成細膩光斑。
+人物臉部自然明亮，膚色清透，保留真實皮膚紋理。
+櫻花為自然淡粉色，不過度飽和。
+整體氣氛溫馨、清新、浪漫、電影感。
+負面
+CG、動漫、插畫、3D人物、塑料皮膚、過度磨皮、過度美顏、魚眼、極端仰拍、透視變形、人體比例錯誤、畸形手指、額外手臂、額外手指、臉部被手遮擋、直視鏡頭、誇張表情、僵硬姿勢、雜亂背景。` },
+
+{ id:'fb-horror-nun-creature', ico:'👹', title:'修女怪物恐怖概念設計', cat:'model3d', source:'AI咒語公社（Facebook社團）・Peter Chew', tool:'ChatGPT（GPT-4o 生圖，Unreal Engine 5 渲染風格）',
+  desc:'生化怪物與惡魔修女融合的恐怖概念角色設計，暗黑哥德教堂場景。',
+  note:'純創意角色設計，不需上傳照片。原作者提醒：這組指令生出來的圖偏恐怖，介意的話可以請 AI 改生成可愛版本。',
+  prompt:`核心提示詞 (Core Prompt)
+A terrifying fusion of a Resident Evil bio-mutant monster and a demonic nun (Valak), grotesque biological horror creature, wearing a tattered and torn black nun outfit stained with blood, pale gaunt face with glowing yellow demonic eyes, sharp rows of needle-like teeth visible through a mutated unhinged jaw, exposed muscle tissues and organic tentacles bursting from beneath the habit, biomechanical cysts and bio-organic growths covering her body, long sharp mutated claws instead of fingers.
+
+背景與氛圍 (Background & Atmosphere)
+Inside a dark gothic abandoned cathedral, ruined church altar in the background, dimly lit by a single eerie moonlight beam through a shattered stained glass window, floating dust motes, heavy dark atmospheric fog, ominous and claustrophobic environment.
+
+藝術風格與畫質 (Style & Quality)
+Horror concept art, dark fantasy style, highly detailed skin textures, hyper-realistic, photorealistic lighting, cinematic composition, volumetric lighting, unreal engine 5 render, dark color palette with deep blacks and toxic bio-luminescent highlights, 8k resolution, masterpiece, 16:9.
+
+（以上的提示詞生出來的圖太恐怖，可以請 AI 改生一張可愛版的提示詞：make a cute Valak, 16:9）` },
 ];
