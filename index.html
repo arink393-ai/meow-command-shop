@@ -88,6 +88,10 @@
   .chips.vertical .chip{text-align:left;border-radius:11px;padding:8px 13px;font-size:13px}
   .side-actions{display:flex;flex-direction:column;gap:6px}
   .side-actions .iconbtn{justify-content:flex-start;border-radius:11px;width:100%;padding:9px 13px}
+  .iconbtn.checkin{background:linear-gradient(145deg,var(--treat),#c98f2a);border-color:transparent;color:#fff}
+  .iconbtn.checkin:hover{filter:brightness(1.05)}
+  .iconbtn.checkin.done{background:var(--card);border-color:var(--line);color:var(--muted);cursor:default}
+  .iconbtn.checkin.done:hover{filter:none}
   .mobile-filter-toggle{display:none}
   @media(max-width:900px){
     .shop-layout{flex-direction:column}
@@ -232,6 +236,8 @@
       <div class="side-sec">
         <div class="side-title">帳戶</div>
         <div class="side-actions">
+          <button class="iconbtn checkin" id="checkinBtn">📅 <span class="lbl">每日打卡 +50</span></button>
+          <button class="iconbtn" id="adminBtn" style="display:none">🛠 <span class="lbl">管理員測試</span></button>
           <button class="iconbtn" id="installBtn" style="display:none">📲 <span class="lbl">安裝到裝置</span></button>
           <button class="iconbtn" id="settingsBtn">🔑 <span class="lbl">AI 設定</span></button>
           <button class="iconbtn" id="histBtn">📜 <span class="lbl">紀錄</span></button>
@@ -269,6 +275,16 @@
 <aside class="sheet left" id="histSheet" aria-hidden="true">
   <div class="sheet-h"><span class="ico">📜</span><div><h2>紀錄</h2><p id="histSub">還沒有紀錄</p></div><button class="x" data-close>×</button></div>
   <div class="sheet-b"><div style="text-align:right;margin-bottom:10px"><button class="mini" id="clearHist">清空紀錄</button></div><div class="hlist" id="hlist"></div></div>
+</aside>
+
+<aside class="sheet right" id="adminSheet" aria-hidden="true">
+  <div class="sheet-h"><span class="ico">🛠</span><div><h2>管理員測試工具</h2><p>只有你（arink393@gmail.com）看得到這個面板，資料只存在你自己的瀏覽器。</p></div><button class="x" data-close>×</button></div>
+  <div class="sheet-b">
+    <label class="fl">目前小魚乾</label>
+    <input class="field" id="adminPointsInput" type="number" step="1" />
+    <button class="run" id="adminSetPointsBtn">設定小魚乾餘額</button>
+    <div class="disclaimer">⚠️ 這只是本機測試用的捷徑，直接改 localStorage 的點數，不會影響其他人、也不會同步到雲端。「跨帳號互相看到彼此安裝了什麼」需要後端資料庫（Supabase 表格＋RLS）才能做，目前這個網站是純前端、沒有後端資料庫，還沒有這塊功能。</div>
+  </div>
 </aside>
 
 <aside class="sheet right" id="topupSheet" aria-hidden="true">
@@ -485,7 +501,34 @@ function login(name,email){name=(name||'').trim();if(!name){toast('先取個名�
   acct=loadAcct(name)||{name,email:(email||'').trim(),points:500,installed:[],history:[]};
   DB.set('meow:current',name);enterShop();}
 async function logout(){ try{ if(sb) await sb.auth.signOut(); }catch(e){} DB.del('meow:current'); acct=null; $('#shop').style.display='none'; $('#barRight').style.display='none'; $('#gate').style.display='grid'; }
-function enterShop(){$('#gate').style.display='none';$('#shop').style.display='block';$('#barRight').style.display='flex';$('#acctName').textContent=acct.name;syncPoints();syncMine();renderChips();renderGrid();}
+const ADMIN_EMAILS=['arink393@gmail.com'];
+function enterShop(){$('#gate').style.display='none';$('#shop').style.display='block';$('#barRight').style.display='flex';$('#acctName').textContent=acct.name;syncPoints();syncMine();renderChips();renderGrid();syncCheckinBtn();
+  const ab=$('#adminBtn'); if(ab) ab.style.display=(acct.email&&ADMIN_EMAILS.includes(acct.email))?'flex':'none';
+}
+function openAdmin(){$('#adminPointsInput').value=acct.points;openScrim();const sh=$('#adminSheet');sh.classList.add('show');sh.setAttribute('aria-hidden','false');}
+function adminSetPoints(){
+  const n=parseInt($('#adminPointsInput').value,10);
+  if(isNaN(n)||n<0){toast('請輸入一個不小於 0 的數字');return;}
+  setPoints(n);
+  toast('已設定小魚乾為 '+n);
+}
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function syncCheckinBtn(){
+  const b=$('#checkinBtn');if(!b)return;
+  const done=acct.lastCheckin===todayStr();
+  b.innerHTML=done?'✅ <span class="lbl">今日已打卡</span>':'📅 <span class="lbl">每日打卡 +50</span>';
+  b.classList.toggle('done',done);
+}
+function checkin(){
+  const t=todayStr();
+  if(acct.lastCheckin===t){toast('今天已經打卡過囉，明天再來～');return;}
+  acct.lastCheckin=t;
+  setPoints(acct.points+50);
+  acct.history.unshift({type:'checkin',amt:50,t:Date.now()});
+  saveAcct();
+  syncCheckinBtn();
+  toast('打卡成功！＋🐟 50 小魚乾');
+}
 function syncPoints(){$('#pts').textContent=acct.points;const c=$('#coin');c.classList.add('bump');setTimeout(()=>c.classList.remove('bump'),200);}
 function syncMine(){$('#mineCount').textContent=acct.installed.length;}
 function setPoints(n){acct.points=n;syncPoints();saveAcct();if(current)refreshRun();}
@@ -573,7 +616,7 @@ function closeEmbed(){ const p=$('#embedPanel'); p.classList.remove('show'); p.s
 
 /* ============ AI 指令 Sheet ============ */
 function openScrim(){$('#scrim').classList.add('show');}
-function closeAll(){$('#scrim').classList.remove('show');['sheet','histSheet','topupSheet','settingsSheet','promptSheet'].forEach(id=>{const el=$('#'+id);el.classList.remove('show');el.setAttribute('aria-hidden','true');});}
+function closeAll(){$('#scrim').classList.remove('show');['sheet','histSheet','topupSheet','settingsSheet','promptSheet','adminSheet'].forEach(id=>{const el=$('#'+id);el.classList.remove('show');el.setAttribute('aria-hidden','true');});}
 function openCmd(s,prefill){
   current=s;
   $('#mIco').textContent=s.ico;$('#mTitle').textContent=s.title;$('#mDesc').textContent=s.desc;$('#mRc').textContent='🐟 '+s.perUse;
@@ -674,6 +717,7 @@ function openHist(){
   if(!acct.history.length){list.innerHTML='<div class="empty"><span class="big">🐾</span>還沒有紀錄。</div>';}
   else list.innerHTML=acct.history.map((h,i)=>{
     if(h.type==='topup')return `<div class="hitem"><div class="row"><span class="hico">🐟</span><span class="htitle htopup">儲值 ＋${h.amt}</span><span class="hmeta">${fmtTime(h.t)}</span></div></div>`;
+    if(h.type==='checkin')return `<div class="hitem"><div class="row"><span class="hico">📅</span><span class="htitle htopup">每日打卡 ＋${h.amt}</span><span class="hmeta">${fmtTime(h.t)}</span></div></div>`;
     if(h.type==='install')return `<div class="hitem"><div class="row"><span class="hico">${h.ico}</span><span class="htitle hinstall">安裝 ${h.title}</span><span class="hmeta">${h.price?'－🐟'+h.price:'免費'}<br>${fmtTime(h.t)}</span></div></div>`;
     return `<div class="hitem gen" data-i="${i}"><div class="row"><span class="hico">${h.ico}</span><span class="htitle">${h.title}</span><span class="hmeta">🐟${h.cost}<br>${fmtTime(h.t)}</span></div>
       <p class="hprev">${h.preview||''}</p>
@@ -696,6 +740,9 @@ $('#logoutBtn').addEventListener('click',logout);
 $('#histBtn').addEventListener('click',openHist);
 $('#topupBtn').addEventListener('click',openTopup);
 $('#settingsBtn').addEventListener('click',openSettings);
+$('#checkinBtn').addEventListener('click',checkin);
+$('#adminBtn').addEventListener('click',openAdmin);
+$('#adminSetPointsBtn').addEventListener('click',adminSetPoints);
 $('#aiProvider').addEventListener('change',()=>{ syncProviderView(); try{localStorage.setItem(PROVIDER_LS,getProvider());}catch(e){} });
 $('#geminiKey').addEventListener('change',()=>{ try{localStorage.setItem(GKEY_LS,getGeminiKey());}catch(e){} });
 $('#geminiModel').addEventListener('change',()=>{ try{localStorage.setItem(GMODEL_LS,getGeminiModel());}catch(e){} });
