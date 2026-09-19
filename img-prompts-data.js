@@ -1400,4 +1400,31 @@ Inside a dark gothic abandoned cathedral, ruined church altar in the background,
 Horror concept art, dark fantasy style, highly detailed skin textures, hyper-realistic, photorealistic lighting, cinematic composition, volumetric lighting, unreal engine 5 render, dark color palette with deep blacks and toxic bio-luminescent highlights, 8k resolution, masterpiece, 16:9.
 
 （以上的提示詞生出來的圖太恐怖，可以請 AI 改生一張可愛版的提示詞：make a cute Valak, 16:9）` },
+
+/* ========== 動畫／影片生成指令（2組）========== */
+{ id:'anim-kling-product-rotate', ico:'🧴', title:'產品旋轉特寫動態廣告', cat:'anim', source:'foreverwebs.com《Kling AI 完整教學》',
+  tool:'Kling AI', url:'https://foreverwebs.com/blog/kling-ai-complete-tutorial-video-generation-guide-2026',
+  desc:'把靜態商品照變成一段緩慢旋轉、鏡頭慢慢拉近的質感廣告短片，適合保養品、香水等精品類商品。',
+  note:'先用 AI 生一張商品靜態圖（或用實拍照），再丟進 Kling AI 的「圖生影片」功能貼上這段提示詞即可。',
+  prompt:`A white moisturizer bottle slowly rotates on a marble surface, camera slowly zooms in, soft morning light from the left, clean minimal aesthetic, 4K product commercial style` },
+{ id:'anim-kling-city-drone', ico:'🌃', title:'未來城市空拍運鏡動畫', cat:'anim', source:'foreverwebs.com《Kling AI 完整教學》',
+  tool:'Kling AI', url:'https://foreverwebs.com/blog/kling-ai-complete-tutorial-video-generation-guide-2026',
+  desc:'賽博龐克風格的夜景城市空拍，鏡頭緩緩拉遠露出天際線，適合科技品牌形象片、開場動畫。',
+  note:'關鍵字結構是「主體＋鏡頭運動＋光線氛圍＋風格」，換掉主體描述就能套用到其他場景。',
+  prompt:`Aerial view of a futuristic city at night, camera slowly pulls back revealing the skyline, blue and purple neon lights reflecting on wet streets, cinematic drone shot, cyberpunk aesthetic` },
+
+/* ========== 音樂生成指令（2組，Suno AI）========== */
+{ id:'music-suno-cyberpunk-drive', ico:'🎧', title:'賽博龐克夜間駕駛電子樂', cat:'music', source:'purestudio.com.tw《ChatGPT 撰寫 Suno 提示詞》',
+  tool:'Suno AI', url:'https://www.purestudio.com.tw/blog/chatgptsuno/',
+  desc:'用「風格標籤」語法快速產生一首暗黑氛圍的夜間駕駛電子樂，貼到 Suno 的風格欄位即可。',
+  note:'Suno 會把標籤當作「加權提示」而非死板清單，標籤越具體（曲風/情緒/年代）效果越準。',
+  prompt:`[style: gritty night drive, mood: dark, era: futuristic]` },
+{ id:'music-suno-symphonic-metal', ico:'🎼', title:'交響金屬史詩詠嘆調（完整分軌）', cat:'music', source:'purestudio.com.tw《ChatGPT 撰寫 Suno 提示詞》',
+  tool:'Suno AI', url:'https://www.purestudio.com.tw/blog/chatgptsuno/',
+  desc:'進階玩法：把整首歌拆成 intro／verse／chorus 分段下指令，各段可指定不同的編曲與人聲風格，適合想做完整結構歌曲的人。',
+  note:'貼到 Suno 自訂模式的歌詞/風格欄位，[ ] 內是控制標籤，可依需求增減段落。',
+  prompt:`[track | genre: symphonic metal, mood: dark, epic, style: cinematic]
+[intro | orchestration: dense]
+[verse | vocalist: powerful female voice, operatic]
+[chorus | choir: dark choirs, layered, powerful]` },
 ];
