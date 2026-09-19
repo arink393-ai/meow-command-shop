@@ -1427,4 +1427,73 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
 [intro | orchestration: dense]
 [verse | vocalist: powerful female voice, operatic]
 [chorus | choir: dark choirs, layered, powerful]` },
+
+/* ========== 影片生成（2組，Kling AI）========== */
+{ id:'videogen-kling-taiwan-valley', ico:'🎬', title:'台灣山谷夕陽空拍紀錄片風', cat:'videogen', source:'foreverwebs.com《Kling AI 完整教學》',
+  tool:'Kling AI', url:'https://foreverwebs.com/blog/kling-ai-complete-tutorial-video-generation-guide-2026',
+  desc:'仿 BBC 紀錄片質感的空拍運鏡，適合旅遊行銷、品牌形象片開場。',
+  note:'公式：主體＋動作描述＋鏡頭運動＋環境/光線＋風格/情緒＋技術規格，六元素寫齊可控性大幅提升。',
+  prompt:`Golden sunset over a lush green mountain valley in Taiwan, low clouds drift slowly through the peaks, camera gently pans right, serene and majestic atmosphere, nature documentary style` },
+{ id:'videogen-kling-cafe-story', ico:'☕', title:'咖啡廳人物故事微電影感', cat:'videogen', source:'foreverwebs.com《Kling AI 完整教學》',
+  tool:'Kling AI', url:'https://foreverwebs.com/blog/kling-ai-complete-tutorial-video-generation-guide-2026',
+  desc:'手持鏡頭、逆光散景的生活感短片，適合品牌故事廣告、IG 限動素材。',
+  note:'把人物年齡、動作、光線來源寫清楚，AI 更容易抓到「自然不做作」的感覺。',
+  prompt:`A young woman in her 30s sits at a cafe table, smiles while reading a book, warm afternoon sunlight through the window, bokeh background, candid photography style, handheld camera feel` },
+
+/* ========== 分鏡（2組）========== */
+{ id:'storyboard-character-subway', ico:'🎞️', title:'角色一致性分鏡：捷運站清晨', cat:'storyboard', source:'seektik.com《AI 分鏡畫面提示詞指南》',
+  tool:'即夢/可靈等生圖工具＋角色鎖定', url:'https://www.seektik.com/ai-storyboard-image-prompt-guide/',
+  desc:'解決 AI 分鏡最大痛點「跨鏡頭角色跑掉」：把角色外觀固定寫死，每一鏡只換場景與情緒。',
+  note:'文章的 8 模塊寫法：鏡頭編號／劇情任務／固定角色／場景環境／動作情緒／景別構圖／光線色調／負面限制。',
+  prompt:`固定角色林夏，22歲城市插畫師，鵝蛋臉，杏眼，深棕色齊肩短髮，空氣瀏海，米白色針織開衫，淺藍色襯衫，深灰色半身裙，銀色小圓耳釘。清晨地鐵站台，冷色燈光，背景人群虛化。近景，林夏低頭看手機，眉頭微皺，眼神從疑惑變成緊張，手指停在螢幕上。溫柔電影感，細膩日系插畫風，低飽和藍灰色調。` },
+{ id:'storyboard-8module-template', ico:'📋', title:'8模塊分鏡萬用填空模板', cat:'storyboard', source:'seektik.com《AI 分鏡畫面提示詞指南》（依其架構延伸）',
+  tool:'即夢/可靈/Midjourney', url:'https://www.seektik.com/ai-storyboard-image-prompt-guide/',
+  desc:'把任何劇本轉成分鏡的萬用骨架，複製後把方括號換成自己的角色與場景就能用，適合簡報提案、廣告腳本前期視覺化。',
+  note:'固定角色描述那一段每一鏡都要「原封不動複製」，才能維持同一個人物長相不跑掉。',
+  prompt:`第[鏡頭編號]鏡・[這一鏡要推進的劇情任務]
+固定角色：[姓名，年齡，臉型，五官特徵，髮型，服裝，配件——每一鏡都要一字不改地複製這段]
+場景環境：[地點，時間，天氣/燈光基調，背景細節]
+動作情緒：[人物正在做什麼動作，臉部表情，情緒轉折]
+景別構圖：[遠景/近景/特寫，鏡頭角度，主體在畫面中的位置]
+光線色調：[主光源方向，色溫，整體色調]
+風格：[電影感/日系插畫/寫實攝影...]
+負面限制：[不要出現的元素，例如比例失調、多餘肢體、文字浮水印]` },
+
+/* ========== 配音（2組，ElevenLabs 情緒標籤）========== */
+{ id:'voiceover-elevenlabs-emotion-tags', ico:'🎙️', title:'情緒標籤旁白：故事型口白', cat:'voiceover', source:'pcrookie.com《ElevenLabs 完整教學 2026》（依文章介紹的標籤語法自製範例）',
+  tool:'ElevenLabs（v3 情緒標籤功能）', url:'https://pcrookie.com/elevenlabs-ai-voice-tutorial-2026/',
+  desc:'ElevenLabs v3 支援在文字前插入情緒標籤（如 [excited]／[sad]／[whisper]／[laughs]／[sighs]），讓同一段旁白隨劇情轉換語氣，適合有聲書、Podcast 開場、品牌故事影片口白。',
+  note:'文章只介紹標籤種類、沒給完整範例，這段是依標籤語法自己組的示範，貼到 ElevenLabs 文字轉語音欄位即可測試。',
+  prompt:`[whispers] 深夜，辦公室只剩我一個人。[sighs] 這個專案，已經改到第八版了。[excited] 但剛剛，客戶回信了——[laughs] 他說，這次終於對了。` },
+{ id:'voiceover-brand-ad-style', ico:'📻', title:'品牌廣告配音風格描述', cat:'voiceover', source:'pcrookie.com《ElevenLabs 完整教學 2026》',
+  tool:'ElevenLabs / 其他 TTS 工具', url:'https://pcrookie.com/elevenlabs-ai-voice-tutorial-2026/',
+  desc:'用文字描述「想要的聲音質感」，用來挑選聲音庫裡最接近的 voice，或給文案加註語氣指示給配音員/AI參考。',
+  note:'中文配音技巧：適度加語氣詞（啊、喔、嗯）讓對話更口語，數字與標點斷句寫清楚能減少機械感。',
+  prompt:`聲音特質：溫暖、沉穩、略帶低音的女聲，語速中等偏慢，像深夜電台主持人。
+語氣：專業但不生硬，句尾略帶上揚的親切感，適合說故事而非唸稿。
+用途：品牌形象影片旁白，30秒版本，開頭要能在3秒內抓住注意力。` },
+
+/* ========== 室內設計（2組，Midjourney）========== */
+{ id:'interior-scandi-minimal', ico:'🛋️', title:'北歐極簡客廳', cat:'interior', source:'Mason AI Lab《AI 空間渲染實戰》',
+  tool:'Midjourney', url:'https://masonailab.com/career/ai-interior-rendering/',
+  desc:'淺色木地板＋白牆＋亞麻織品的北歐極簡風格，適合房仲賣屋情境圖、居家品牌形象。',
+  note:'公式：空間類型＋設計風格＋色調/材質＋光線＋關鍵元素＋攝影風格，--no 後面加不想出現的元素。',
+  prompt:`Interior of a modern Scandinavian minimalist living room, light oak flooring, white walls, linen textiles, soft morning light from large windows, minimal furniture, clean lines, eye level perspective --ar 16:9 --no cluttered, messy, plastic furniture, neon lights` },
+{ id:'interior-japanese-zen', ico:'🎋', title:'日式和風室內', cat:'interior', source:'Mason AI Lab《AI 空間渲染實戰》',
+  tool:'Midjourney', url:'https://masonailab.com/career/ai-interior-rendering/',
+  desc:'榻榻米＋障子拉門＋禪意庭院借景的和風空間，適合民宿宣傳、室內設計提案簡報。',
+  note:'把「檜木」這類具體材質名詞寫進去，比只寫 wood 更容易生出想要的質感。',
+  prompt:`Japanese interior with tatami flooring, shoji screen partition, warm wood tones (檜木), zen garden elements visible through windows, diffused daylight, minimal decor, traditional aesthetic --ar 16:9` },
+
+/* ========== 海報設計（2組）========== */
+{ id:'posterdesign-office-campaign', ico:'📢', title:'公司內部活動宣傳海報', cat:'posterdesign', source:'104職場力《ChatGPT生成圖片別只寫幫我做海報》',
+  tool:'ChatGPT（Images 2.0）', url:'https://blog.104.com.tw/chatgpt-image-workplace-visual-prompt-guide/',
+  desc:'把「六要素」（素材類型／使用場景／目標對象／核心訊息／視覺風格／版面需求）寫進提示詞，海報一次到位不用來回修。',
+  note:'把方括號內容換成自己的活動資訊即可，其餘結構照抄。',
+  prompt:`生成一張公司內部活動宣導海報。活動主題：員工健康月，目標對象：公司全體員工，使用場景：內部公告、公司通訊軟體，風格：明亮、友善、專業、溫暖、有活力，版面需求：上方保留主標題區，下方保留活動日期與資訊區，色彩：綠色、藍色、白色為主，尺寸：A4直式，避免：太卡通、太醫療、畫面太擁擠` },
+{ id:'posterdesign-product-launch', ico:'🚀', title:'新品發表會海報', cat:'posterdesign', source:'104職場力《ChatGPT生成圖片別只寫幫我做海報》（依六要素框架延伸）',
+  tool:'ChatGPT（Images 2.0）', url:'https://blog.104.com.tw/chatgpt-image-workplace-visual-prompt-guide/',
+  desc:'同一套六要素框架換個場景：面向客戶與媒體的產品發表會宣傳圖，質感要求更高。',
+  note:'記得保留文字區塊位置的描述，不然 AI 生成的標題文字常常會糊掉或拼錯字，最後還是要自己疊字。',
+  prompt:`生成一張新品發表會宣傳海報。活動主題：年度旗艦新品發表會，目標對象：媒體與VIP客戶，使用場景：官網banner、社群貼文、現場輸出看板，風格：科技感、質感、簡潔、高級，版面需求：上方保留品牌Logo，中央保留產品意象留白，下方保留日期地點資訊區，色彩：黑、金、深藍為主，尺寸：直式9:16，避免：廉價感、過多裝飾線條、字太小` },
 ];
