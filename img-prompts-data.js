@@ -1278,4 +1278,27 @@ Typography should feel like a refined vintage Japanese tourism publication: bold
 Vertical poster composition, approximately 3:4 ratio. Premium editorial design, minimalist, collectible travel print, sophisticated and timeless.
 
 Important: Do not simply apply a poster filter to the photograph. Reconstruct the photograph as an intentional graphic illustration while maintaining the visual identity and perspective of the original scene.` },
+{ id:'td20260919-photobook-1980s-portrait', img:'', ico:'📼', title:'80年代復古寫真感', cat:'photobook', source:'Threads（經 NOWnews／自由時報3C 轉載）',
+  desc:'上傳一張清楚的人像照，AI把你重生成宛如1980年代拍立得攝影棚的復古寫真照，蓬鬆髮型、墊肩西裝、底片顆粒感一次到位。',
+  note:'免費版ChatGPT也能用，但每天生成張數有限；先丟中文短版試試效果即可。',
+  url:'https://www.nownews.com/news/6876332',
+  prompt:`如果我活在80年代 會是什麼樣子？
+
+(英文版) Using my uploaded photo, show me what I would have looked like around 1980.` },
+{ id:'td20260919-physiognomy-guide-card', img:'', ico:'🔮', title:'面相分析指南資訊圖卡', cat:'physiognomy', source:'Threads @billy_nien',
+  desc:'上傳一張人像照，AI生成一張雜誌感的「面相分析指南」資訊圖卡，五官逐一標註加氣質解讀，很適合發限動炫耀。',
+  note:'這是Threads上原始流傳的版本；想要更完整的雷達圖或氣質評語，可以自己在後面加一句「請再加上整體氣質評語與五官能量雷達圖」。',
+  url:'https://www.threads.com/@billy_nien/post/DXgiMiDlA8R',
+  prompt:`請根據我上傳的人像照片，製作一張高質感中文「面相分析指南」資訊圖表。
+
+要求：保留原人物真實五官、臉型與辨識度，不要過度修圖。整體風格乾淨、時尚、專業，像高端雜誌專欄或社群精品圖文。版面以人物肖像為主視覺，搭配細緻線條標註五官區域。
+
+圖片內容包含：
+1. 標題：「面相分析指南」
+2. 副標：「從五官與輪廓看性格、氣質與發展潛力」
+3. 人物臉部重點標註（額頭、眉毛、眼睛、鼻子、嘴巴、下巴、臉型，搭配簡短中文解析）` },
+{ id:'td20260919-outfit-color-analysis-card', img:'', ico:'🎨', title:'個人色彩分析穿搭圖卡', cat:'outfit', source:'Threads @aiposthub',
+  desc:'上傳人像照，AI幫你排出哪些服裝顏色顯氣色、哪些不適合，左右對比一目了然，像專業形象顧問報告。',
+  url:'https://www.threads.com/@aiposthub/post/DXo2fRSAU0U/',
+  prompt:`請根據我上傳的人像照片，製作一張高質感個人色彩分析圖卡。保留主角原本五官、膚色與臉型，透過左右或並排對比方式，展示不同服裝顏色穿在主角身上的效果，清楚區分「適合色」與「不適合色」。版面需乾淨時尚、像專業形象顧問報告，以視覺呈現為主，僅使用簡短標籤（如：推薦／普通／避免），高解析度、適合社群分享。` },
 ];

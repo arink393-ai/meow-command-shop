@@ -251,4 +251,12 @@ window.WORK_PROMPTS = [
   desc:'「要導向哪個行動」逼它想目的，避免十二則貼文湊不成一件事。',
   fields:[{key:'theme',type:'text',label:'核心主題',ph:'例：秋季新品上市'}],
   prompt:v=>`幫我排下個月的社群內容行事曆，一週三則，主題圍繞 ${v.theme}。每則寫：日期、主題一句話、內容形式（圖文／短影音／純文字）、要導向哪個行動。做成表格。` },
+{ id:'td20260919-deai-reader-rewrite', ico:'🪄', title:'去AI味改寫', cat:'deai', type:'ai', price:0, perUse:10,
+  desc:'Threads上瘋傳的一句話咒語，站在讀者的閱讀感受重寫，去掉教科書式的AI腔調。',
+  fields:[{key:'content',type:'textarea',label:'要改寫的文字',ph:'貼上想去除AI感的文字'}],
+  prompt:v=>`請只站在讀者的閱讀感受來改寫這段文字，不要最佳化、不要教學感、不要 AI 味，只求好讀、自然，像人寫的文字。內容如下：\n\n${v.content}` },
+{ id:'td20260919-thesis-dumb-explain', ico:'🎓', title:'論文白話講解', cat:'thesis', type:'ai', price:0, perUse:12,
+  desc:'逼AI用大白話解釋論文在幹嘛，特別是模型跟實證部分，看不懂的論文先丟這個。',
+  fields:[{key:'paper',type:'textarea',label:'論文內容或摘要',ph:'貼上論文全文、摘要或關鍵段落'}],
+  prompt:v=>`我是一名智力低下的博士生，我想學習一下這篇論文，請用傻子都能懂的語言詳細給我講一下這篇文章怎麼做的，特別是模型和實證方面。論文內容如下：\n\n${v.paper}` },
 ];
