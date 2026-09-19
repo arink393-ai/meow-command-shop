@@ -259,6 +259,18 @@ window.WORK_PROMPTS = [
   desc:'逼AI用大白話解釋論文在幹嘛，特別是模型跟實證部分，看不懂的論文先丟這個。',
   fields:[{key:'paper',type:'textarea',label:'論文內容或摘要',ph:'貼上論文全文、摘要或關鍵段落'}],
   prompt:v=>`我是一名智力低下的博士生，我想學習一下這篇論文，請用傻子都能懂的語言詳細給我講一下這篇文章怎麼做的，特別是模型和實證方面。論文內容如下：\n\n${v.paper}` },
+{ id:'thesis-litreview-purpose', ico:'🌷', title:'找出文獻回顧真正的目的', cat:'thesis', type:'ai', price:0, perUse:12,
+  desc:'文獻回顧寫完了，但不確定夠不夠支撐「為什麼這個研究值得做」，讓AI幫你檢查論證有沒有缺口。',
+  fields:[{key:'lit',type:'textarea',label:'研究主題與文獻回顧',ph:'貼上你的研究主題，以及文獻回顧的內容'}],
+  prompt:v=>`以下是我的研究主題與文獻回顧。\n\n請協助我分析：\n這些文獻是否已經足以說明「為什麼我的研究值得做」？\n\n如果沒有，請指出還缺少哪些論證。\n\n${v.lit}` },
+{ id:'thesis-research-gap', ico:'🌷', title:'找出研究缺口', cat:'thesis', type:'ai', price:0, perUse:12,
+  desc:'不要AI直接幫你編一個研究缺口，而是用提問引導你自己看出文獻回顧裡還沒被回答的問題在哪。',
+  fields:[{key:'lit',type:'textarea',label:'文獻回顧內容',ph:'貼上你的文獻回顧全文'}],
+  prompt:v=>`以下是我的文獻回顧。\n\n請不要直接幫我寫研究缺口，而是協助我分析：\n\n1. 哪些研究已經回答了？\n2. 哪些問題仍然沒有被回答？\n3. 哪些地方最有機會形成研究缺口？\n\n請以分析與提問的方式引導我思考。\n\n${v.lit}` },
+{ id:'thesis-defense-committee-check', ico:'🌷', title:'檢查第二章的說服力', cat:'thesis', type:'ai', price:0, perUse:12,
+  desc:'讓AI扮演口試委員，只看你的第二章文獻回顧，直接判斷這個研究值不值得做，哪裡說服力不夠。',
+  fields:[{key:'ch2',type:'textarea',label:'第二章（文獻回顧）內容',ph:'貼上論文第二章／文獻回顧全文'}],
+  prompt:v=>`請扮演我的論文口試委員。\n\n閱讀以下文獻回顧後，回答：\n如果只看第二章，你是否會認為這個研究值得做？\n\n如果答案是否定的，請具體指出原因，並告訴我哪些地方需要補強，才能更有說服力。\n\n${v.ch2}` },
 
 /* ========== 簡報（2組，站內直接生成）========== */
 { id:'wp-slide-outline', ico:'📽️', title:'簡報逐頁大綱', cat:'slides', type:'ai', price:0, perUse:12,
