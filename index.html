@@ -83,6 +83,8 @@
   .seg.vertical button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
   .seg.vertical b{margin-left:auto}
   .chips.vertical{display:flex;flex-direction:column;flex-wrap:nowrap;gap:4px;padding:0}
+  .chip-group-label{font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;margin:14px 2px 2px;text-transform:uppercase}
+  .chip-group-label:first-of-type{margin-top:6px}
   .chips.vertical .chip{text-align:left;border-radius:11px;padding:8px 13px;font-size:13px}
   .side-actions{display:flex;flex-direction:column;gap:6px}
   .side-actions .iconbtn{justify-content:flex-start;border-radius:11px;width:100%;padding:9px 13px}
@@ -442,6 +444,13 @@ const CATS={read:'閱讀',teach:'教學',lang:'語言',biz:'商務',life:'生活
 const CATCLASS={read:'cat-read',teach:'cat-teach',lang:'cat-lang',biz:'cat-biz',life:'cat-life',copy:'cat-copy',worklife:'cat-worklife',devprompt:'cat-devprompt',jpstyle:'cat-jp',grid9:'cat-grid',poster:'cat-poster',doll:'cat-doll',threads:'cat-threads',
   anim:'cat-anim2',model3d:'cat-model',thesis:'cat-doc',slides:'cat-design2',videogen:'cat-analysis',storyboard:'cat-jp',voiceover:'cat-grid',deai:'cat-poster',interior:'cat-doll',posterdesign:'cat-threads',dataviz:'cat-anim2',official:'cat-model',photobook:'cat-doc',physiognomy:'cat-design2',outfit:'cat-analysis'};
 const PACKAGES=[{name:'小包',amt:100,bonus:0,price:'NT$ 60'},{name:'中包（最划算）',amt:300,bonus:30,price:'NT$ 160',best:true},{name:'大包',amt:800,bonus:120,price:'NT$ 400'}];
+const CAT_GROUPS=[
+  {label:'基礎工具', cats:['read','teach','lang','biz','life']},
+  {label:'AI 文字小幫手', cats:['copy','worklife','devprompt']},
+  {label:'學術與文件', cats:['thesis','slides','deai','dataviz','official']},
+  {label:'生圖指令庫', cats:['jpstyle','grid9','poster','doll','threads']},
+  {label:'Threads熱門特效', cats:['anim','model3d','videogen','storyboard','voiceover','interior','posterdesign','photobook','physiognomy','outfit']}
+];
 
 /* ============ 儲存層（預覽用記憶體，GitHub Pages 自動用 localStorage）============ */
 const DB=(()=>{let mem={},useMem=false;try{localStorage.setItem('__p','1');localStorage.removeItem('__p');}catch(e){useMem=true;}
@@ -472,8 +481,12 @@ function setPoints(n){acct.points=n;syncPoints();saveAcct();if(current)refreshRu
 /* ============ 市集渲染 ============ */
 function renderChips(){
   $('#chips').style.display=view==='mine'?'none':'flex';
-  const cats=[['all','全部'],...Object.entries(CATS)];
-  $('#chips').innerHTML=cats.map(([k,v])=>`<button class="chip ${k===filter?'on':''}" data-c="${k}">${v}</button>`).join('');
+  let html=`<button class="chip ${filter==='all'?'on':''}" data-c="all">全部</button>`;
+  CAT_GROUPS.forEach(g=>{
+    html+=`<div class="chip-group-label">${g.label}</div>`;
+    html+=g.cats.map(k=>`<button class="chip ${k===filter?'on':''}" data-c="${k}">${CATS[k]}</button>`).join('');
+  });
+  $('#chips').innerHTML=html;
 }
 function priceTag(s){
   if(owns(s.id)) return s.type==='ai'?`<span class="tag">🐟 ${s.perUse}/次</span>`:`<span class="tag free">已擁有</span>`;
