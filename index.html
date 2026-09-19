@@ -278,12 +278,18 @@
 </aside>
 
 <aside class="sheet right" id="adminSheet" aria-hidden="true">
-  <div class="sheet-h"><span class="ico">🛠</span><div><h2>管理員測試工具</h2><p>只有你（arink393@gmail.com）看得到這個面板，資料只存在你自己的瀏覽器。</p></div><button class="x" data-close>×</button></div>
+  <div class="sheet-h"><span class="ico">🛠</span><div><h2>管理員測試工具</h2><p>只有你（arink393@gmail.com）看得到這個面板。</p></div><button class="x" data-close>×</button></div>
   <div class="sheet-b">
-    <label class="fl">目前小魚乾</label>
+    <label class="fl">你自己的小魚乾</label>
     <input class="field" id="adminPointsInput" type="number" step="1" />
     <button class="run" id="adminSetPointsBtn">設定小魚乾餘額</button>
-    <div class="disclaimer">⚠️ 這只是本機測試用的捷徑，直接改 localStorage 的點數，不會影響其他人、也不會同步到雲端。「跨帳號互相看到彼此安裝了什麼」需要後端資料庫（Supabase 表格＋RLS）才能做，目前這個網站是純前端、沒有後端資料庫，還沒有這塊功能。</div>
+    <div class="disclaimer">⚠️ 只能調整你自己（登入中）的帳號，用 Google／Email 登入的帳號才會同步到雲端，訪客模式只存在這台裝置。</div>
+
+    <div style="margin-top:24px;display:flex;align-items:center;justify-content:space-between">
+      <label class="fl" style="margin:0">所有帳號（誰裝了什麼）</label>
+      <button class="mini" id="adminRefreshBtn">🔄 重新整理</button>
+    </div>
+    <div id="adminAcctList" style="margin-top:10px"></div>
   </div>
 </aside>
 
@@ -492,8 +498,25 @@ const $=s=>document.querySelector(s);
 const skillById=id=>SKILLS.find(s=>s.id===id);
 const owns=id=>acct.installed.includes(id);
 function acctKey(n){return 'meow:acct:'+n;}
-function saveAcct(){if(acct)DB.set('meow:acct:'+(acct.uid||acct.name),JSON.stringify(acct));}
+function saveAcct(){if(acct)DB.set('meow:acct:'+(acct.uid||acct.name),JSON.stringify(acct));syncAcctToCloud();}
 function loadAcctById(uid){const r=DB.get('meow:acct:'+uid);if(!r)return null;const a=JSON.parse(r);a.installed=a.installed||[];a.history=a.history||[];return a;}
+async function syncAcctToCloud(){
+  if(!sb||!acct||!acct.uid)return;
+  try{
+    await sb.from('meow_shop_accounts').upsert({
+      uid:acct.uid,email:acct.email||null,name:acct.name||null,
+      points:acct.points,installed:acct.installed||[],last_checkin:acct.lastCheckin||null,
+      updated_at:new Date().toISOString()
+    });
+  }catch(e){/* offline or RLS hiccup — local copy still works, next save retries */}
+}
+async function loadAcctFromCloud(uid){
+  if(!sb)return null;
+  try{
+    const r=await sb.from('meow_shop_accounts').select('*').eq('uid',uid).maybeSingle();
+    return r.error?null:r.data;
+  }catch(e){return null;}
+}
 function loadAcct(n){const r=DB.get(acctKey(n));if(!r)return null;const a=JSON.parse(r);a.installed=a.installed||[];a.history=a.history||[];return a;}
 
 /* ============ 登入 ============ */
@@ -505,12 +528,31 @@ const ADMIN_EMAILS=['arink393@gmail.com'];
 function enterShop(){$('#gate').style.display='none';$('#shop').style.display='block';$('#barRight').style.display='flex';$('#acctName').textContent=acct.name;syncPoints();syncMine();renderChips();renderGrid();syncCheckinBtn();
   const ab=$('#adminBtn'); if(ab) ab.style.display=(acct.email&&ADMIN_EMAILS.includes(acct.email))?'flex':'none';
 }
-function openAdmin(){$('#adminPointsInput').value=acct.points;openScrim();const sh=$('#adminSheet');sh.classList.add('show');sh.setAttribute('aria-hidden','false');}
+function openAdmin(){$('#adminPointsInput').value=acct.points;openScrim();const sh=$('#adminSheet');sh.classList.add('show');sh.setAttribute('aria-hidden','false');loadAdminAcctList();}
 function adminSetPoints(){
   const n=parseInt($('#adminPointsInput').value,10);
   if(isNaN(n)||n<0){toast('請輸入一個不小於 0 的數字');return;}
   setPoints(n);
   toast('已設定小魚乾為 '+n);
+}
+async function loadAdminAcctList(){
+  const wrap=$('#adminAcctList');
+  if(!sb){wrap.innerHTML='<div class="empty" style="padding:16px 0">尚未連上 Supabase。</div>';return;}
+  wrap.innerHTML='<div class="empty" style="padding:16px 0">載入中…</div>';
+  try{
+    const r=await sb.from('meow_shop_accounts').select('*').order('updated_at',{ascending:false});
+    if(r.error)throw r.error;
+    const rows=r.data||[];
+    if(!rows.length){wrap.innerHTML='<div class="empty" style="padding:16px 0">還沒有任何帳號同步過雲端（訪客模式或第一次登入前都不會有資料）。</div>';return;}
+    wrap.innerHTML=rows.map(row=>{
+      const names=(row.installed||[]).map(id=>{const s=skillById(id);return s?s.title:id;});
+      return `<div class="hitem" style="margin-bottom:8px">
+        <div class="row"><span class="hico">🐾</span><span class="htitle">${escapeHtml(row.name||'（無名字）')}</span><span class="hmeta">🐟 ${row.points}<br>${row.last_checkin?'上次打卡 '+row.last_checkin:'還沒打卡'}</span></div>
+        <div class="hprev" style="white-space:normal;overflow:visible">${escapeHtml(row.email||'')}</div>
+        <div class="hprev" style="white-space:normal;overflow:visible;margin-top:4px">📦 ${names.length?escapeHtml(names.join('、')):'（還沒裝任何技能）'}</div>
+      </div>`;
+    }).join('');
+  }catch(e){wrap.innerHTML='<div class="empty" style="padding:16px 0">載入失敗：'+escapeHtml(e.message||String(e))+'</div>';}
 }
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function syncCheckinBtn(){
@@ -743,6 +785,7 @@ $('#settingsBtn').addEventListener('click',openSettings);
 $('#checkinBtn').addEventListener('click',checkin);
 $('#adminBtn').addEventListener('click',openAdmin);
 $('#adminSetPointsBtn').addEventListener('click',adminSetPoints);
+$('#adminRefreshBtn').addEventListener('click',loadAdminAcctList);
 $('#aiProvider').addEventListener('change',()=>{ syncProviderView(); try{localStorage.setItem(PROVIDER_LS,getProvider());}catch(e){} });
 $('#geminiKey').addEventListener('change',()=>{ try{localStorage.setItem(GKEY_LS,getGeminiKey());}catch(e){} });
 $('#geminiModel').addEventListener('change',()=>{ try{localStorage.setItem(GMODEL_LS,getGeminiModel());}catch(e){} });
@@ -805,13 +848,20 @@ const USE_SB = /^https:\/\/.+\.supabase\.co/.test(SUPABASE_URL) && /^(sb_publish
 let sb=null, authMode='login';
 function authErr(m){ var e=$('#authErr'); if(e)e.textContent=m||''; }
 function setAuthMode(m){ authMode=m; $('#tabLogin').classList.toggle('on',m==='login'); $('#tabSignup').classList.toggle('on',m==='signup'); $('#authBtn').textContent=m==='signup'?'註冊':'登入'; authErr(''); }
-function enterFromUser(u){
+async function enterFromUser(u){
   if(!u||acct&&acct.uid===u.id) { if(u&&acct&&acct.uid===u.id) return; }
   if(!u) return;
   var meta=u.user_metadata||{};
   var name=meta.full_name||meta.name||(u.email?u.email.split('@')[0]:'朋友');
   acct=loadAcctById(u.id)||{uid:u.id,name:name,email:u.email||'',points:500,installed:[],history:[]};
   acct.uid=u.id; acct.name=name; if(u.email)acct.email=u.email;
+  const cloud=await loadAcctFromCloud(u.id);
+  if(cloud){
+    acct.points=cloud.points;
+    acct.installed=cloud.installed||[];
+    acct.lastCheckin=cloud.last_checkin||undefined;
+    if(cloud.name)acct.name=cloud.name;
+  }
   saveAcct(); enterShop();
 }
 async function doAuth(){
