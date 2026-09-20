@@ -123,6 +123,15 @@
   .tag{position:relative;font-family:var(--font-display);font-weight:700;font-size:13px;background:#efe0c4;color:#6b5636;border:1px solid #ddca9f;padding:4px 10px 4px 16px;border-radius:5px 12px 12px 5px}
   .tag::before{content:"";position:absolute;left:6px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1px #c9b58a}
   .tag.free{background:#e6efdd;color:#4e6b3e;border-color:#c3d8b0}
+  .model-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .model-tags.in-card{margin:2px 0 6px}
+  .model-tag{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-display);font-weight:700;font-size:11px;padding:3px 9px;border-radius:999px;line-height:1.5}
+  .model-chatgpt{background:#e3f3ea;color:#1e7b52}
+  .model-claude{background:#fbe7d9;color:#c9683a}
+  .model-gemini{background:#e5ebfc;color:#3e5fd9}
+  .model-grok{background:#ececec;color:#333}
+  .model-deepseek{background:#e1f0ef;color:#1e7a72}
+  .model-midjourney{background:#f1e6fb;color:#7a4fa0}
 
   .cbtn{width:100%;border:none;border-radius:11px;padding:11px;font-family:var(--font-display);font-weight:700;font-size:14px;cursor:pointer;margin-top:13px;color:#fff;transition:.15s}
   .cbtn.install{background:linear-gradient(145deg,var(--persimmon),var(--persimmon-dk))}
@@ -260,7 +269,7 @@
 <div class="scrim" id="scrim"></div>
 
 <aside class="sheet right" id="sheet" aria-hidden="true">
-  <div class="sheet-h"><span class="ico" id="mIco">✨</span><div><h2 id="mTitle">技能</h2><p id="mDesc"></p></div><button class="x" data-close>×</button></div>
+  <div class="sheet-h"><span class="ico" id="mIco">✨</span><div><h2 id="mTitle">技能</h2><p id="mDesc"></p><div id="mModelTags"></div></div><button class="x" data-close>×</button></div>
   <div class="sheet-b">
     <div id="mFields"></div>
     <div class="mbtns" style="display:flex;gap:8px">
@@ -474,6 +483,21 @@ const SKILLS = [
   id:p.id, ico:p.ico, title:p.title, cat:p.cat, type:'prompt', price:0, img:p.img,
   desc:p.desc, note:p.note, promptText:p.prompt, src:p.source, tool:p.tool, srcUrl:p.url
 })));
+const MODEL_META={
+  chatgpt:{label:'ChatGPT',ico:'⬡',cls:'model-chatgpt'},
+  claude:{label:'Claude',ico:'✳',cls:'model-claude'},
+  gemini:{label:'Gemini',ico:'✦',cls:'model-gemini'},
+  grok:{label:'Grok',ico:'✕',cls:'model-grok'},
+  deepseek:{label:'DeepSeek',ico:'◆',cls:'model-deepseek'},
+  midjourney:{label:'Midjourney',ico:'◐',cls:'model-midjourney'}
+};
+function renderModelTags(models,extraClass){
+  if(!models||!models.length)return '';
+  return `<div class="model-tags${extraClass?' '+extraClass:''}">${models.map(m=>{
+    const meta=MODEL_META[m]; if(!meta)return '';
+    return `<span class="model-tag ${meta.cls}">${meta.ico} ${meta.label}</span>`;
+  }).join('')}</div>`;
+}
 const CATS={read:'閱讀',teach:'教學',lang:'語言',biz:'商務',life:'生活',copy:'文案發想',worklife:'職場提示詞',devprompt:'工程提示詞',jpstyle:'日系拼貼',grid9:'九宮格大頭貼',poster:'活動字體海報',doll:'公仔指令',threads:'Threads爆紅',
   anim:'動畫',model3d:'建模',thesis:'研究所論文神器',slides:'簡報',videogen:'影片生成',storyboard:'分鏡',voiceover:'配音',deai:'去AI感',interior:'室內設計',posterdesign:'海報設計',dataviz:'數據分析圖表',official:'公文撰寫檢查',photobook:'寫真集感圖',physiognomy:'面相分析',outfit:'穿搭分析',music:'音樂生成',
   lessonprep:'備課神器',assessment:'評量設計',parentcomm:'親師溝通'};
@@ -609,6 +633,7 @@ function renderGrid(){
       ${s.img?`<img class="card-img" src="${s.img}" alt="${s.title} 範例圖" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" />`:''}
       <div class="ico">${s.ico}</div>
       <h3>${s.title} ${owns(s.id)?'<span class="owned-tag">已安裝</span>':''}</h3>
+      ${renderModelTags(s.models,'in-card')}
       <p class="d">${s.desc}</p>
       <div class="foot">
         <span class="catdot ${CATCLASS[s.cat]}">${CATS[s.cat]} · <span class="kind">${s.type==='ai'?'AI':s.type==='prompt'?'指令':'工具'}</span></span>
@@ -666,6 +691,7 @@ function closeAll(){$('#scrim').classList.remove('show');['sheet','histSheet','t
 function openCmd(s,prefill){
   current=s;
   $('#mIco').textContent=s.ico;$('#mTitle').textContent=s.title;$('#mDesc').textContent=s.desc;$('#mRc').textContent='🐟 '+s.perUse;
+  $('#mModelTags').innerHTML=renderModelTags(s.models);
   $('#mFields').innerHTML=s.fields.map(f=>{
     const val=prefill&&prefill[f.key]!=null?prefill[f.key]:'';
     if(f.type==='select')return `<label class="fl">${f.label}</label><select class="field" data-k="${f.key}">${f.options.map(o=>`<option ${o===val?'selected':''}>${o}</option>`).join('')}</select>`;
