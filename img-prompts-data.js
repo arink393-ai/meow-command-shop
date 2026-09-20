@@ -1496,4 +1496,11 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
   desc:'同一套六要素框架換個場景：面向客戶與媒體的產品發表會宣傳圖，質感要求更高。',
   note:'記得保留文字區塊位置的描述，不然 AI 生成的標題文字常常會糊掉或拼錯字，最後還是要自己疊字。',
   prompt:`生成一張新品發表會宣傳海報。活動主題：年度旗艦新品發表會，目標對象：媒體與VIP客戶，使用場景：官網banner、社群貼文、現場輸出看板，風格：科技感、質感、簡潔、高級，版面需求：上方保留品牌Logo，中央保留產品意象留白，下方保留日期地點資訊區，色彩：黑、金、深藍為主，尺寸：直式9:16，避免：廉價感、過多裝飾線條、字太小` },
+
+/* ========== 精選自 Prompts AI指令庫 prompts.tw（1組，依站方條款標註來源）========== */
+{ id:'ptw-mj-product', ico:'📸', title:'商品情境圖咒語（Midjourney）', cat:'posterdesign', source:'Prompts AI指令庫 prompts.tw',
+  tool:'Midjourney', url:'https://prompts.tw/p/mj-product',
+  desc:'生成電商情境圖用的英文 Midjourney prompt 公式，換掉商品描述就能套用到自己的商品。',
+  note:'複製後把 wireless earbuds 換成你的商品英文描述、--ar 換成想要的比例即可。',
+  prompt:`Generate a Midjourney prompt for an e-commerce product lifestyle photo of wireless earbuds, including lighting, composition, mood and --ar 4:5.` },
 ];
