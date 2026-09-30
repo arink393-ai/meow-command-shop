@@ -317,6 +317,7 @@
     <select class="field" id="aiProvider">
       <option value="gemini">Google Gemini（免費）</option>
       <option value="claude">Anthropic Claude</option>
+      <option value="grok">xAI Grok</option>
     </select>
 
     <div id="providerGemini">
@@ -341,9 +342,20 @@
       <div class="hint" style="font-size:12px;color:var(--muted);margin:-8px 0 16px">到 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a> 申請金鑰（需先儲值扣款，非免費）。</div>
     </div>
 
+    <div id="providerGrok" style="display:none">
+      <label class="fl">Grok API 金鑰</label>
+      <input class="field" id="grokKey" type="password" placeholder="貼上你的 xAI API 金鑰（xai-...）" autocomplete="off" />
+      <label class="fl">模型</label>
+      <select class="field" id="grokModel">
+        <option value="grok-4.7">Grok 4.7（旗艦・預設）</option>
+        <option value="grok-4.3">Grok 4.3（較快・較便宜）</option>
+      </select>
+      <div class="hint" style="font-size:12px;color:var(--muted);margin:-8px 0 16px">到 <a href="https://console.x.ai" target="_blank" rel="noopener">xAI Console</a> 申請金鑰（需先儲值扣款，非免費）。</div>
+    </div>
+
     <button class="run" id="testKeyBtn">測試金鑰</button>
     <div class="warn" id="keyStatus" style="display:none"></div>
-    <div class="disclaimer">金鑰只存在<b>你自己這台裝置的瀏覽器</b>（localStorage），不會送到任何後端，也不會同步到別的裝置；兩個服務的金鑰可以都填，隨時切換用哪一個。</div>
+    <div class="disclaimer">金鑰只存在<b>你自己這台裝置的瀏覽器</b>（localStorage），不會送到任何後端，也不會同步到別的裝置；三個服務的金鑰可以都填，隨時切換用哪一個。</div>
   </div>
 </aside>
 
@@ -706,16 +718,20 @@ function collect(){const v={};document.querySelectorAll('#mFields .field').forEa
 /* ============ Gemini（AI 小幫手用你自己的免費金鑰）============ */
 const GKEY_LS='meow:gemini_key', GMODEL_LS='meow:gemini_model';
 const CKEY_LS='meow:claude_key', CMODEL_LS='meow:claude_model', PROVIDER_LS='meow:ai_provider';
+const XKEY_LS='meow:grok_key', XMODEL_LS='meow:grok_model';
 function getGeminiKey(){ var el=$('#geminiKey'); return el?el.value.trim():''; }
 function getGeminiModel(){ var el=$('#geminiModel'); return el&&el.value?el.value:'gemini-2.5-flash'; }
 function getClaudeKey(){ var el=$('#claudeKey'); return el?el.value.trim():''; }
 function getClaudeModel(){ var el=$('#claudeModel'); return el&&el.value?el.value:'claude-sonnet-5'; }
+function getGrokKey(){ var el=$('#grokKey'); return el?el.value.trim():''; }
+function getGrokModel(){ var el=$('#grokModel'); return el&&el.value?el.value:'grok-4.7'; }
 function getProvider(){ var el=$('#aiProvider'); return el&&el.value?el.value:'gemini'; }
-function hasActiveKey(){ return getProvider()==='claude' ? !!getClaudeKey() : !!getGeminiKey(); }
+function hasActiveKey(){ const p=getProvider(); return p==='claude'?!!getClaudeKey():p==='grok'?!!getGrokKey():!!getGeminiKey(); }
 function syncProviderView(){
   const p=getProvider();
-  $('#providerGemini').style.display = p==='claude' ? 'none' : 'block';
+  $('#providerGemini').style.display = p==='gemini' ? 'block' : 'none';
   $('#providerClaude').style.display = p==='claude' ? 'block' : 'none';
+  $('#providerGrok').style.display = p==='grok' ? 'block' : 'none';
 }
 function openSettings(){
   $('#keyStatus').style.display='none';
@@ -760,7 +776,25 @@ async function claudeGenerate(text){
   if(!txt) throw new Error('沒有回傳內容');
   return txt;
 }
-function aiGenerate(text){ return getProvider()==='claude' ? claudeGenerate(text) : geminiGenerate(text); }
+async function grokGenerate(text){
+  const key=getGrokKey();
+  if(!key) throw new Error('尚未設定 Grok 金鑰，請先點右上角「設定」貼上金鑰。');
+  const res=await fetch('https://api.x.ai/v1/chat/completions',{
+    method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+    body:JSON.stringify({model:getGrokModel(),messages:[{role:'user',content:text}],max_tokens:1024})});
+  if(!res.ok){
+    let msg='API 錯誤 '+res.status;
+    try{ const e=await res.json(); if(e.error&&e.error.message)msg=e.error.message; }catch(_){}
+    if(res.status===401)msg='金鑰無效，請確認金鑰是否正確';
+    if(res.status===429)msg='已達額度上限，請稍後再試';
+    throw new Error(msg);
+  }
+  const d=await res.json();
+  const txt=d.choices&&d.choices[0]&&d.choices[0].message?d.choices[0].message.content:'';
+  if(!txt) throw new Error('沒有回傳內容');
+  return txt;
+}
+function aiGenerate(text){ const p=getProvider(); return p==='claude'?claudeGenerate(text):p==='grok'?grokGenerate(text):geminiGenerate(text); }
 async function runCommand(){
   const v=collect();
   if(current.fields.some(f=>f.type!=='select'&&!v[f.key])){toast('先把欄位填一下喵～');return;}
@@ -821,6 +855,8 @@ $('#geminiKey').addEventListener('change',()=>{ try{localStorage.setItem(GKEY_LS
 $('#geminiModel').addEventListener('change',()=>{ try{localStorage.setItem(GMODEL_LS,getGeminiModel());}catch(e){} });
 $('#claudeKey').addEventListener('change',()=>{ try{localStorage.setItem(CKEY_LS,getClaudeKey());}catch(e){} });
 $('#claudeModel').addEventListener('change',()=>{ try{localStorage.setItem(CMODEL_LS,getClaudeModel());}catch(e){} });
+$('#grokKey').addEventListener('change',()=>{ try{localStorage.setItem(XKEY_LS,getGrokKey());}catch(e){} });
+$('#grokModel').addEventListener('change',()=>{ try{localStorage.setItem(XMODEL_LS,getGrokModel());}catch(e){} });
 $('#testKeyBtn').addEventListener('click',async()=>{
   const st=$('#keyStatus'); st.style.display='block'; st.textContent='測試中…';
   try{ const t=await aiGenerate('請只回覆四個字：金鑰有效'); st.textContent='✅ '+t.trim(); }
@@ -832,6 +868,8 @@ try{
   const sm=localStorage.getItem(GMODEL_LS); if(sm)$('#geminiModel').value=sm;
   const ck=localStorage.getItem(CKEY_LS); if(ck)$('#claudeKey').value=ck;
   const cm=localStorage.getItem(CMODEL_LS); if(cm)$('#claudeModel').value=cm;
+  const xk=localStorage.getItem(XKEY_LS); if(xk)$('#grokKey').value=xk;
+  const xm=localStorage.getItem(XMODEL_LS); if(xm)$('#grokModel').value=xm;
   syncProviderView();
 }catch(e){}
 function closeMobileFilter(){
