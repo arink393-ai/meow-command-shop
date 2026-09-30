@@ -325,8 +325,9 @@
       <input class="field" id="geminiKey" type="password" placeholder="貼上你的 Gemini API 金鑰（AIza...）" autocomplete="off" />
       <label class="fl">模型</label>
       <select class="field" id="geminiModel">
-        <option value="gemini-2.5-flash">Gemini 2.5 Flash（預設・品質佳）</option>
-        <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite（更快・免費額度高）</option>
+        <option value="gemini-3.8-flash">Gemini 3.8 Flash（預設・目前主力模型）</option>
+        <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite（更快・更便宜）</option>
+        <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite（備用・將於2026/10/16淘汰）</option>
       </select>
       <div class="hint" style="font-size:12px;color:var(--muted);margin:-8px 0 16px">免費申請：到 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a> 登入 Google 帳號 → Create API key，貼上即可。</div>
     </div>
@@ -336,8 +337,9 @@
       <input class="field" id="claudeKey" type="password" placeholder="貼上你的 Anthropic API 金鑰（sk-ant-...）" autocomplete="off" />
       <label class="fl">模型</label>
       <select class="field" id="claudeModel">
-        <option value="claude-sonnet-5">Claude Sonnet 5（推薦・平衡品質與速度）</option>
-        <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5（更快・較便宜）</option>
+        <option value="claude-sonnet-5-5">Claude Sonnet 5.5（推薦・平衡品質與速度）</option>
+        <option value="claude-opus-5-5">Claude Opus 5.5（最強・較貴較慢）</option>
+        <option value="claude-haiku-4-5">Claude Haiku 4.5（最快・最便宜）</option>
       </select>
       <div class="hint" style="font-size:12px;color:var(--muted);margin:-8px 0 16px">到 <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a> 申請金鑰（需先儲值扣款，非免費）。</div>
     </div>
@@ -720,9 +722,9 @@ const GKEY_LS='meow:gemini_key', GMODEL_LS='meow:gemini_model';
 const CKEY_LS='meow:claude_key', CMODEL_LS='meow:claude_model', PROVIDER_LS='meow:ai_provider';
 const XKEY_LS='meow:grok_key', XMODEL_LS='meow:grok_model';
 function getGeminiKey(){ var el=$('#geminiKey'); return el?el.value.trim():''; }
-function getGeminiModel(){ var el=$('#geminiModel'); return el&&el.value?el.value:'gemini-2.5-flash'; }
+function getGeminiModel(){ var el=$('#geminiModel'); return el&&el.value?el.value:'gemini-3.8-flash'; }
 function getClaudeKey(){ var el=$('#claudeKey'); return el?el.value.trim():''; }
-function getClaudeModel(){ var el=$('#claudeModel'); return el&&el.value?el.value:'claude-sonnet-5'; }
+function getClaudeModel(){ var el=$('#claudeModel'); return el&&el.value?el.value:'claude-sonnet-5-5'; }
 function getGrokKey(){ var el=$('#grokKey'); return el?el.value.trim():''; }
 function getGrokModel(){ var el=$('#grokModel'); return el&&el.value?el.value:'grok-4.7'; }
 function getProvider(){ var el=$('#aiProvider'); return el&&el.value?el.value:'gemini'; }
@@ -798,7 +800,12 @@ function aiGenerate(text){ const p=getProvider(); return p==='claude'?claudeGene
 async function runCommand(){
   const v=collect();
   if(current.fields.some(f=>f.type!=='select'&&!v[f.key])){toast('先把欄位填一下喵～');return;}
-  if(!hasActiveKey()){ closeAll(); openSettings(); toast('請先設定 AI 金鑰喵～'); return; }
+  if(!hasActiveKey()){
+    const out=$('#mOut');
+    $('#mResult').classList.add('show');
+    out.innerHTML='<div class="warn">還沒設定 AI 金鑰，先把完整指令列出來，複製貼到 ChatGPT／Claude／Gemini 就能用。想在站內直接生成的話，點「AI 設定」貼上你自己的金鑰即可。</div><div class="out" style="margin-top:10px">'+escapeHtml(current.prompt(v))+'</div>';
+    return;
+  }
   if(acct.points<current.perUse){refreshRun();return;}
   const btn=$('#mRun'),out=$('#mOut');btn.disabled=true;$('#mResult').classList.add('show');
   out.innerHTML='<div class="thinking"><span class="fishswim">🐟</span>喵～ 正在生成…</div>';
