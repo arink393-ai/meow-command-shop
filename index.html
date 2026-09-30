@@ -797,13 +797,18 @@ async function grokGenerate(text){
   return txt;
 }
 function aiGenerate(text){ const p=getProvider(); return p==='claude'?claudeGenerate(text):p==='grok'?grokGenerate(text):geminiGenerate(text); }
+function resolvePromptFn(s){
+  if(typeof s.prompt==='function')return s.prompt;
+  const p=getProvider();
+  return s.prompt[p]||s.prompt.default||Object.values(s.prompt)[0];
+}
 async function runCommand(){
   const v=collect();
   if(current.fields.some(f=>f.type!=='select'&&!v[f.key])){toast('先把欄位填一下喵～');return;}
   if(!hasActiveKey()){
     const out=$('#mOut');
     $('#mResult').classList.add('show');
-    out.innerHTML='<div class="warn">還沒設定 AI 金鑰，先把完整指令列出來，複製貼到 ChatGPT／Claude／Gemini 就能用。想在站內直接生成的話，點「AI 設定」貼上你自己的金鑰即可。</div><div class="out" style="margin-top:10px">'+escapeHtml(current.prompt(v))+'</div>';
+    out.innerHTML='<div class="warn">還沒設定 AI 金鑰，先把完整指令列出來，複製貼到 ChatGPT／Claude／Gemini 就能用。想在站內直接生成的話，點「AI 設定」貼上你自己的金鑰即可。</div><div class="out" style="margin-top:10px">'+escapeHtml(resolvePromptFn(current)(v))+'</div>';
     return;
   }
   if(acct.points<current.perUse){refreshRun();return;}
@@ -811,7 +816,7 @@ async function runCommand(){
   out.innerHTML='<div class="thinking"><span class="fishswim">🐟</span>喵～ 正在生成…</div>';
   setPoints(acct.points-current.perUse);toast('－🐟 '+current.perUse);
   try{
-    const text=(await aiGenerate(current.prompt(v))).trim();
+    const text=(await aiGenerate(resolvePromptFn(current)(v))).trim();
     if(!text)throw new Error("empty");
     out.textContent=text;
     const prev=Object.values(v).filter(Boolean).join(' · ').slice(0,60);
@@ -898,7 +903,7 @@ $('#mCopyPrompt').addEventListener('click',()=>{
   if(!current||current.type!=='ai')return;
   const v=collect();
   if(current.fields.some(f=>f.type!=='select'&&!v[f.key])){toast('先把欄位填一下喵～');return;}
-  navigator.clipboard.writeText(current.prompt(v)).then(()=>toast('指令已複製，可貼到 ChatGPT／Claude 用 🐾'));
+  navigator.clipboard.writeText(resolvePromptFn(current)(v)).then(()=>toast('指令已複製，可貼到 ChatGPT／Claude 用 🐾'));
 });
 $('#mCopy').addEventListener('click',()=>navigator.clipboard.writeText($('#mOut').textContent).then(()=>toast('已複製 🐾')));
 $('#pCopyBtn').addEventListener('click',()=>navigator.clipboard.writeText($('#pText').textContent).then(()=>toast('指令已複製 🐾')));
