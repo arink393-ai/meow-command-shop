@@ -1586,4 +1586,11 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
   prompt:`設計一張直式 [聖誕市集] 活動海報：手繪水彩插畫風，暖紅、森林綠與米白配色，畫面上方是裝飾聖誕樹與小燈串，中間有 [木頭小攤車與熱飲] 的溫馨場景，下方保留大片乾淨留白供加入 [日期、地點、活動名稱]。氛圍溫暖、有節慶感，不要出現真人臉孔、品牌 logo 或亂碼文字。` },
 { id:'daily-20261123-handmade-flatlay', ico:'🧶', title:'手作商品暖色桌面擺拍', cat:'productphoto', source:'原創', tool:'ChatGPT Images／Gemini 生圖', desc:'小店手作品（蠟燭、織品、陶器）的生活感商品圖，適合社群與電商。', note:'請以實品照為準，生成圖僅作情境參考，避免誤導顧客。',
   prompt:`生成一張手作商品情境照：[手工香氛蠟燭] 放在淺色木桌上，旁邊搭配 [乾燥花與亞麻布]，自然窗光從左側斜射，柔和陰影，淺景深、暖米色調，俯拍 45 度角。質感寫實，商品為視覺主角，背景簡潔，不出現品牌文字與人物。4:5 直式，適合 Instagram。` },
+/* ===== daily 2026-11-24 ===== */
+{ id:'daily-20261124-film-grain-retouch', ico:'🎞️', title:'數位照片加回底片質感（漏光＋顆粒）', cat:'photobook', source:'靈感：天下雜誌 Gemini 修圖玩法報導（概念改寫）', tool:'Gemini 生圖／ChatGPT Images', url:'https://www.cw.com.tw/article/5141230', desc:'上傳自己拍的乾淨照片，加回刻意的不完美底片感。',
+  note:'請只上傳自己拍攝、有權使用的照片；不要修改他人肖像。',
+  prompt:`請編輯我上傳的照片，保留人物與構圖不變，只調整質感：加入 [ISO 400 彩色底片] 的細緻顆粒、[右上角] 的暖橘色輕微漏光、略微降低對比與飽和、高光帶一點柔暈，邊角有淡淡暗角。膚色維持自然，不要磨皮、不要改變五官。不要加入任何文字或浮水印。` },
+{ id:'daily-20261124-ad-text-localize', ico:'🌏', title:'廣告圖直接改字／多語版本', cat:'posterdesign', source:'靈感：天下雜誌 Gemini 修圖玩法報導（概念改寫）', tool:'Gemini 生圖／ChatGPT Images', url:'https://www.cw.com.tw/article/5141230', desc:'已有廣告圖，只替換畫面上的文字，並產生英文或日文版。',
+  note:'生成後務必逐字檢查錯字與標點，並確認價格、日期無誤。',
+  prompt:`請以我上傳的廣告圖為基礎，保持版面、配色、商品與字體風格不變，只把畫面中的文字替換為：主標「[新主標]」、副標「[新副標]」、按鈕文字「[行動呼籲]」。文字必須清楚、無亂碼、置中對齊、不被商品遮擋。另外再輸出一張同版面的 [英文] 版本。不要新增 logo 或其他文字。` },
 ];
