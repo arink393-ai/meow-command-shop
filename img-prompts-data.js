@@ -1593,4 +1593,11 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
 { id:'daily-20261124-ad-text-localize', ico:'🌏', title:'廣告圖直接改字／多語版本', cat:'posterdesign', source:'靈感：天下雜誌 Gemini 修圖玩法報導（概念改寫）', tool:'Gemini 生圖／ChatGPT Images', url:'https://www.cw.com.tw/article/5141230', desc:'已有廣告圖，只替換畫面上的文字，並產生英文或日文版。',
   note:'生成後務必逐字檢查錯字與標點，並確認價格、日期無誤。',
   prompt:`請以我上傳的廣告圖為基礎，保持版面、配色、商品與字體風格不變，只把畫面中的文字替換為：主標「[新主標]」、副標「[新副標]」、按鈕文字「[行動呼籲]」。文字必須清楚、無亂碼、置中對齊、不被商品遮擋。另外再輸出一張同版面的 [英文] 版本。不要新增 logo 或其他文字。` },
+/* ===== daily 2026-11-25 ===== */
+{ id:'daily-20261125-handdrawn-steps', ico:'🧾', title:'手繪風三步驟教學資訊圖', cat:'posterdesign', source:'靈感：數位時代 ChatGPT Images 提示詞指南的結構化寫法（概念改寫）', tool:'ChatGPT Images／Gemini 生圖', url:'https://www.bnext.com.tw/article/92209/chatgpt-image2.5-prompt-guide', desc:'把一個流程拆成三個步驟，做成可分享的手繪風資訊圖，適合食譜、保養、設定教學。',
+  note:'圖中文字請逐字檢查；步驟內容以自己的實際流程為準。',
+  prompt:`請製作一張直式 4:5 的手繪風教學資訊圖，主題：[主題，例：在家沖手沖咖啡]。版面：上方大標題「[標題]」，中間由上到下三個步驟，每步有編號圓圈、一個簡單手繪插圖與一行說明（步驟一：[步驟一]；步驟二：[步驟二]；步驟三：[步驟三]），底部一行小提醒「[小提醒]」。風格：[暖米色] 紙張底、彩色鉛筆質感線條、[橘色與深綠] 為主色，字體圓潤好讀，繁體中文，文字清楚無錯字。不要出現人臉、品牌 logo 與多餘文字。` },
+{ id:'daily-20261125-giftbox-flatlay', ico:'🎁', title:'跨年禮盒開箱俯拍廣告圖', cat:'productphoto', source:'原創', tool:'ChatGPT Images／Gemini 生圖', desc:'節慶禮盒的俯拍情境照，預留文案空白區，可直接排版成廣告。',
+  note:'若要標示實際商品，請上傳自家商品照作為參考並檢查細節；不要讓 AI 自行生成品牌標誌。',
+  prompt:`俯拍 90 度，一個打開的 [跨年] 禮盒置於 [深紅色絨布] 桌面上，盒內整齊排放 [三款商品，例：茶包、手工餅乾、小蠟燭]，周圍點綴 [金色緞帶、乾燥橙片、鬆果]。柔和側光，帶輕微陰影，質感高級溫暖，色調 [紅金色系]。畫面右側留出約 30% 乾淨空白，方便放廣告文案。不要出現文字、logo、人物，不要塑膠感。比例 [4:5]。` },
 ];
