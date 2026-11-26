@@ -1600,4 +1600,11 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
 { id:'daily-20261125-giftbox-flatlay', ico:'🎁', title:'跨年禮盒開箱俯拍廣告圖', cat:'productphoto', source:'原創', tool:'ChatGPT Images／Gemini 生圖', desc:'節慶禮盒的俯拍情境照，預留文案空白區，可直接排版成廣告。',
   note:'若要標示實際商品，請上傳自家商品照作為參考並檢查細節；不要讓 AI 自行生成品牌標誌。',
   prompt:`俯拍 90 度，一個打開的 [跨年] 禮盒置於 [深紅色絨布] 桌面上，盒內整齊排放 [三款商品，例：茶包、手工餅乾、小蠟燭]，周圍點綴 [金色緞帶、乾燥橙片、鬆果]。柔和側光，帶輕微陰影，質感高級溫暖，色調 [紅金色系]。畫面右側留出約 30% 乾淨空白，方便放廣告文案。不要出現文字、logo、人物，不要塑膠感。比例 [4:5]。` },
+/* ===== daily 2026-11-26 ===== */
+{ id:'daily-20261126-bf-nontext-hero', ico:'🖤', title:'黑五檔期商品主視覺（無字底圖）', cat:'productphoto', source:'靈感：Dreamina 黑色星期五廣告提示詞頁的「先出無字主視覺」做法（概念改寫）', tool:'ChatGPT Images／Gemini 生圖', url:'https://dreamina.capcut.com/zh-tw/ai-image/black-friday-ai-ad-prompts', desc:'先生成不含文字的高質感商品主視覺，留出空白，再用設計軟體加價格與日期，避免中文字崩壞。',
+  note:'價格、折扣與日期請在 Canva 等工具自行加上，不要讓 AI 生成銷售文字。',
+  prompt:`[商品，例：黑色真皮卡夾] 的廣告主視覺，置於 [黑色霧面石材檯面]，[紅色] 邊緣光與柔和反射，背景為深色漸層，氛圍高級神秘。商品位於畫面 [左下] 三分之一處，右上約 40% 保留乾淨空白，供後製放文案。近距離微距質感，光影對比強。完全不要出現任何文字、數字、logo 與人物。比例 [4:5]。` },
+{ id:'daily-20261126-json-style', ico:'🧬', title:'用 JSON 描述並復刻設計風格', cat:'posterdesign', source:'靈感：數位時代整理的 JSON 設計風格復刻做法（概念改寫）', tool:'ChatGPT Images／Gemini 生圖', url:'https://www.bnext.com.tw/article/91430/ai-image-prompt-style-guide', desc:'上傳自己的參考設計，先請 AI 拆解成風格 JSON，再替換主題，方便大量產出同風格系列圖。',
+  note:'僅上傳自己的設計或有權使用的素材；不要復刻他人受保護的作品或商標。',
+  prompt:`步驟一：請分析我上傳的參考設計圖，輸出一份 JSON，欄位包含：layout（版面結構）、color_palette（5 個色碼）、typography（字體風格）、illustration_style（插畫或攝影風格）、lighting、mood、avoid（避免項目）。\n步驟二：請依據這份 JSON 的風格，生成一張新圖，主題為 [新主題，例：冬季暖飲新品]，比例 [4:5]，標題文字為「[標題]」。保持風格一致，但不要複製參考圖的任何具體元素、人物或 logo。文字須清楚無錯字。` },
 ];
