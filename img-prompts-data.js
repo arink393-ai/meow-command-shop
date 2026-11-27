@@ -1607,4 +1607,9 @@ Horror concept art, dark fantasy style, highly detailed skin textures, hyper-rea
 { id:'daily-20261126-json-style', ico:'🧬', title:'用 JSON 描述並復刻設計風格', cat:'posterdesign', source:'靈感：數位時代整理的 JSON 設計風格復刻做法（概念改寫）', tool:'ChatGPT Images／Gemini 生圖', url:'https://www.bnext.com.tw/article/91430/ai-image-prompt-style-guide', desc:'上傳自己的參考設計，先請 AI 拆解成風格 JSON，再替換主題，方便大量產出同風格系列圖。',
   note:'僅上傳自己的設計或有權使用的素材；不要復刻他人受保護的作品或商標。',
   prompt:`步驟一：請分析我上傳的參考設計圖，輸出一份 JSON，欄位包含：layout（版面結構）、color_palette（5 個色碼）、typography（字體風格）、illustration_style（插畫或攝影風格）、lighting、mood、avoid（避免項目）。\n步驟二：請依據這份 JSON 的風格，生成一張新圖，主題為 [新主題，例：冬季暖飲新品]，比例 [4:5]，標題文字為「[標題]」。保持風格一致，但不要複製參考圖的任何具體元素、人物或 logo。文字須清楚無錯字。` },
+/* ===== daily 2026-11-27 ===== */
+{ id:'daily-20261127-ig-carousel', ico:'🎠', title:'IG 五張知識輪播圖卡（風格統一）', cat:'posterdesign', source:'原創（靈感：數位時代 BNext 提示詞風格整理）', tool:'ChatGPT Images／Gemini 生圖', url:'https://www.bnext.com.tw/article/91430/ai-image-prompt-style-guide', desc:'一次產出封面＋三張內容＋結尾共五張 4:5 輪播圖，版型與配色一致，繁中文字。', note:'中文字請逐張檢查有無錯字；若有錯，用對話要求只修正該張文字。',
+  prompt:`請生成 5 張 Instagram 輪播圖卡，比例 4:5，風格與配色必須完全一致。\n主題：[主題，例：新手理財三個好習慣]\n風格：[例：米白底、墨綠色與橘色點綴、簡約扁平插畫、圓角卡片]\n第 1 張（封面）：大標題「[封面標題]」，副標「滑動看完整重點」\n第 2 張：小標「[重點一]」，下方一句說明「[說明一]」，搭配簡單圖示\n第 3 張：小標「[重點二]」，說明「[說明二]」\n第 4 張：小標「[重點三]」，說明「[說明三]」\n第 5 張（結尾）：「[行動呼籲，例：存起來慢慢看]」與帳號名稱「[@帳號]」\n所有文字使用繁體中文，字體清楚、四周留白足夠、不要出現多餘文字或浮水印。` },
+{ id:'daily-20261127-chat-refine', ico:'🪄', title:'商品圖對話式微調（八成滿意只改一處）', cat:'productphoto', source:'原創（靈感：數位時代報導 Google Nano Banana Pro 提示詞原則）', tool:'Gemini 生圖／ChatGPT Images', url:'https://www.bnext.com.tw/article/85387/google-nano-banana-pro-prompts', desc:'先上傳或生成一張商品圖，再用一句一句的對話只改單一細節，避免整張重生。', note:'一次只改一件事，成功率最高；改完再提下一個。',
+  prompt:`請保留這張圖的商品外型、構圖與整體光線完全不變，只修改以下這一個地方：\n[要改的細節，例：把背景桌面從白色改成淺木紋；或把右下角的陰影變柔和]\n商品材質為[材質，例：霧面陶瓷]，請維持真實質感，不要改變商品 logo 與文字。\n輸出比例維持 [4:5]。完成後我會再提下一個修改。` },
 ];
